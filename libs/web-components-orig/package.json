@@ -10,7 +10,7 @@
     "library"
   ],
   "scripts": {
-    "build": "export ROLLUP_WATCH=1 && rollup -c",
+    "build": "set ROLLUP_WATCH=1 && rollup -c",
     "build:prod": "rollup -c",
     "build:demo": "rollup -c rollup.demo.config.js",
     "dev": "rollup -c rollup.demo.config.js -w",

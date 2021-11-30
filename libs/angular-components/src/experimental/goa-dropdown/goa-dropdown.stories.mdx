@@ -9,6 +9,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
 import { WCDropdownComponent } from './goa-dropdown.component';
 import { WCDropdownItemComponent } from '../goa-dropdown-item/goa-dropdown-item.component';
+import { ExperimentalComponentsModule } from '../components.module.ts';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import 'goa-web-components';
 
@@ -17,8 +18,8 @@ import 'goa-web-components';
   component={WCDropdownComponent}
   decorators={[
     moduleMetadata({
-      declarations: [WCDropdownComponent, WCDropdownItemComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: [ExperimentalComponentsModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }),
   ]}
   argTypes={{}}
@@ -30,10 +31,10 @@ export const Template = (args) => {
   };
   return {
     template: `
-    <goa-ng-dropdown name="mylist">
-      <goa-ng-dropdown-item value="1" label="Foo" name="mylist"></goa-ng-dropdown-item>
-      <goa-ng-dropdown-item value="2" label="Bar" name="mylist"></goa-ng-dropdown-item>
-      <goa-ng-dropdown-item value="3" label="Bam" name="mylist"></goa-ng-dropdown-item>
+    <goa-ng-dropdown name="" disabled="true">
+      <goa-ng-dropdown-item value="1" label="Foo" > </goa-ng-dropdown-item>
+      <goa-ng-dropdown-item value="2" label="Bar" ></goa-ng-dropdown-item>
+      <goa-ng-dropdown-item value="3" label="Bam" ></goa-ng-dropdown-item>
     </goa-ng-dropdown>`,
     props: args,
   };

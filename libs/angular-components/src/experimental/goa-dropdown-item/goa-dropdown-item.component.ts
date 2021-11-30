@@ -4,6 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 @Component({
   selector: 'goa-ng-dropdown-item',
   templateUrl: './goa-dropdown-item.component.html',
+  styleUrls: ['./goa-dropdown-item.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -16,6 +17,22 @@ export class WCDropdownItemComponent implements ControlValueAccessor {
 
   @Input()
   name: string;
+
+  /**
+   * The unique id of the option.
+   */
+   @Input() id: string;
+
+   /**
+    * The value for the option
+    */
+   @Input() value: any;
+
+     /**
+   * Label to be used for option.
+   */
+  @Input() label: string;
+
 
   @Input()
   selectedValues: string[];
