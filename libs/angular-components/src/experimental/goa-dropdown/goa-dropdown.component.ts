@@ -1,7 +1,8 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, forwardRef, CUSTOM_ELEMENTS_SCHEMA, NgModule, ContentChildren, QueryList } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, forwardRef, CUSTOM_ELEMENTS_SCHEMA, NgModule, ContentChildren, QueryList, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { WCDropdownItemComponent } from '../goa-dropdown-item/goa-dropdown-item.component';
 import 'goa-web-components'
+
 
 
 @Component({
@@ -26,6 +27,8 @@ export class WCDropdownComponent implements ControlValueAccessor {
     return this.inputElement?.nativeElement;
   }
 
+  constructor(private cdr: ChangeDetectorRef) { }
+
   /**
   * All options.
   * @ignore
@@ -43,17 +46,67 @@ export class WCDropdownComponent implements ControlValueAccessor {
   get name(): string {
     return this._name;
   }
-
   private _name: string;
 
   @Input()
   selectedValues: string[];
 
+  get values() {
+
+    return JSON.stringify(this.selectedValues);
+  }
+
+  @Input()
+  isMultiSelect: boolean;
+
+
+  get multiSelect() {
+    return this.isMultiSelect && 'multiselect';
+  }
+
+
+  @Input()
+  leadingIcon: string;
+
+  @Input()
+  placeHolder: string;
+
+  @Input()
+  autoComplete: boolean;
+
+  get isAutoComplete() {
+    return this.autoComplete && 'autocomplete'
+  }
+
+  @Input()
+  disabled: boolean;
+
+  get isDisabled() {
+    return this.disabled && 'disabled';
+  }
+
+  @Input()
+  maxHeight: number;
+
+
+
+
+
+
+
   @Output()
-  valueChanged: EventEmitter<string[] | undefined | null> = new EventEmitter();
+  valueChanged: EventEmitter< Array<any> | undefined | null> = new EventEmitter();
 
   ngAfterViewInit() {
-    this.allOptions.forEach(a => a.name = this._name);
+    this.allOptions.forEach(a => a.name = this.name);
+
+    this.input.addEventListener('on:change', (state: CustomEvent) => {
+      console.log(state.detail.data);
+      const {  value } = state.detail.data;
+      this.valueChanged.emit(value);
+    });
+
+    this.cdr.detectChanges();
 
   }
 

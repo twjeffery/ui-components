@@ -19,7 +19,7 @@ import 'goa-web-components';
   decorators={[
     moduleMetadata({
       imports: [ExperimentalComponentsModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }),
   ]}
   argTypes={{}}
@@ -31,13 +31,63 @@ export const Template = (args) => {
   };
   return {
     template: `
-    <goa-ng-dropdown name="" disabled="true">
+    <goa-ng-dropdown name="basic" [disabled]="disabled" [isMultiSelect]="isMultiSelect" [autoComplete]="autoComplete"
+    [selectedValues] = selectedValues>
       <goa-ng-dropdown-item value="1" label="Foo" > </goa-ng-dropdown-item>
       <goa-ng-dropdown-item value="2" label="Bar" ></goa-ng-dropdown-item>
       <goa-ng-dropdown-item value="3" label="Bam" ></goa-ng-dropdown-item>
+      <goa-ng-dropdown-item value="4" label="Hit" ></goa-ng-dropdown-item>
+      <goa-ng-dropdown-item value="5" label="Job" ></goa-ng-dropdown-item>
+      <goa-ng-dropdown-item value="6" label="Test" ></goa-ng-dropdown-item>
     </goa-ng-dropdown>`,
     props: args,
   };
 };
 
-<Story name="Basic">{Template.bind({})}</Story>
+<Story
+  name="Basic"
+  args={{
+    isMultiSelect: false,
+    selectedValues: [],
+    autoComplete: false,
+    disabled: false,
+  }}
+>
+  {Template.bind({})}
+</Story>
+
+<Story
+  name="Multi Select"
+  args={{
+    isMultiSelect: true,
+    selectedValues: [],
+    autoComplete: false,
+    disabled: false,
+  }}
+>
+  {Template.bind({})}
+</Story>
+
+<Story
+  name="Auto complete"
+  args={{
+    isMultiSelect: false,
+    selectedValues: [],
+    autoComplete: true,
+    disabled: false,
+  }}
+>
+  {Template.bind({})}
+</Story>
+
+<Story
+  name="Intial Values"
+  args={{
+    isMultiSelect: false,
+    selectedValues: ['1', '2'],
+    autoComplete: false,
+    disabled: false,
+  }}
+>
+  {Template.bind({})}
+</Story>

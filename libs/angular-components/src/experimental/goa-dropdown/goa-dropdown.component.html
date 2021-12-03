@@ -1,3 +1,13 @@
-<goa-dropdown [name]="name"  #goaWcDropdown >
+<goa-dropdown #goaWcDropdown
+              [name]="name"
+              [ismultiselect]="multiSelect"
+              [values]="values"
+              [leadingicon]="leadingIcon"
+              [placeholder]="placeHolder"
+              [isautocomplete]="autoComplete"
+              [isdisabled]="isDisabled"
+              [placeholder]="placeHolder"
+              [maxheight]= "maxHeight"
+              >
   <ng-content></ng-content>
 </goa-dropdown>

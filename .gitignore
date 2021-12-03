@@ -91,3 +91,4 @@ libs/angular-material-components/documentation.json
 /.vs
 
 tmp
+.vscode/tasks.json
