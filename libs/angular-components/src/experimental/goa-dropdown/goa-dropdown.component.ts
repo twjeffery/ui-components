@@ -89,11 +89,6 @@ export class WCDropdownComponent implements ControlValueAccessor {
   maxHeight: number;
 
 
-
-
-
-
-
   @Output()
   valueChanged: EventEmitter< Array<any> | undefined | null> = new EventEmitter();
 
@@ -101,7 +96,7 @@ export class WCDropdownComponent implements ControlValueAccessor {
     this.allOptions.forEach(a => a.name = this.name);
 
     this.input.addEventListener('on:change', (state: CustomEvent) => {
-      console.log(state.detail.data);
+
       const {  value } = state.detail.data;
       this.valueChanged.emit(value);
     });

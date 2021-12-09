@@ -1,0 +1,12 @@
+<goa-container [headingsize]="headingSize" [variant]="variant">
+  <div slot="title">
+      <ng-content select=[title]></ng-content>
+  </div>
+  <div slot="actions">
+      <ng-content select="[actions]"></ng-content>
+  </div>
+<ng-content select="[content]"></ng-content>
+
+
+</goa-container>
+

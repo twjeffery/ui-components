@@ -17,7 +17,12 @@
             "production": {
               "tsConfig": "libs/angular-components/tsconfig.lib.prod.json"
             }
-          }
+          },
+          "assets": [{
+            "glob": "**/*",
+            "input": "./node_modules/ionicons/dist/svg",
+            "output": "./assets/ionicons/svg"
+           }]
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",

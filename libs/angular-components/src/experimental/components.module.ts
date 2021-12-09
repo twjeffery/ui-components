@@ -6,6 +6,9 @@ import { GoANumberInputComponent } from './number-input/number-input.component';
 import { AngularComponentsModule } from '../lib/angular-components.module';
 import { WCDropdownComponent } from './goa-dropdown/goa-dropdown.component';
 import { WCDropdownItemComponent } from './goa-dropdown-item/goa-dropdown-item.component';
+import { WCContainerComponent } from './goa-container/goa-container.component';
+import { WCButtonComponent } from './goa-button/goa-button.component';
+import {  defineCustomElements } from "ionicons/dist/loader";
 
 @NgModule({
   imports: [
@@ -17,17 +20,26 @@ import { WCDropdownItemComponent } from './goa-dropdown-item/goa-dropdown-item.c
     GoAAppVersionHeaderComponent,
     GoANumberInputComponent,
     WCDropdownComponent,
-    WCDropdownItemComponent
+    WCDropdownItemComponent,
+    WCContainerComponent,
+    WCButtonComponent,
   ],
   declarations: [
     GoABadgeComponent,
     GoAAppVersionHeaderComponent,
     GoANumberInputComponent,
     WCDropdownComponent,
-    WCDropdownItemComponent
+    WCDropdownItemComponent,
+    WCContainerComponent,
+    WCButtonComponent,
   ],
   providers: [
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class ExperimentalComponentsModule { }
+
+//https://github.com/ionic-team/ionicons/issues/769
+defineCustomElements(window, {
+  resourcesUrl: "assets/ionicons/"
+});
