@@ -1,0 +1,44 @@
+import {
+  Meta,
+  Canvas,
+  Story,
+  ArgsTable,
+  Description,
+} from '@storybook/addon-docs/blocks';
+import { moduleMetadata } from '@storybook/angular';
+import { action } from '@storybook/addon-actions';
+import { WCIconButtonComponent } from './goa-icon-button.component';
+import { ExperimentalComponentsModule } from '../components.module.ts';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import 'goa-web-components';
+
+<Meta
+  title="Experimental/Components/WC Icon Button"
+  component={WCIconButtonComponent}
+  decorators={[
+    moduleMetadata({
+      imports: [ExperimentalComponentsModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }),
+  ]}
+  argTypes={{}}
+/>
+
+export const Template = (args) => {
+  return {
+    template: `
+    <goa-ng-icon-button [type]="type" [size]="size"></goa-ng-icon-button>
+`,
+    props: args,
+  };
+};
+
+<Story
+  name="Basic"
+  args={{
+    type: 'close',
+    size: 'large',
+  }}
+>
+  {Template.bind({})}
+</Story>

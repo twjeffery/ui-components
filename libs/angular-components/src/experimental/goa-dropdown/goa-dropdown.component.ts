@@ -74,10 +74,6 @@ export class WCDropdownComponent implements ControlValueAccessor {
   @Input()
   autoComplete: boolean;
 
-  get isAutoComplete() {
-    return this.autoComplete && 'autocomplete'
-  }
-
   @Input()
   disabled: boolean;
 

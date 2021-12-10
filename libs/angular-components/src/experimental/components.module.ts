@@ -8,7 +8,9 @@ import { WCDropdownComponent } from './goa-dropdown/goa-dropdown.component';
 import { WCDropdownItemComponent } from './goa-dropdown-item/goa-dropdown-item.component';
 import { WCContainerComponent } from './goa-container/goa-container.component';
 import { WCButtonComponent } from './goa-button/goa-button.component';
-import {  defineCustomElements } from "ionicons/dist/loader";
+//import {  defineCustomElements } from "ionicons/dist/loader";
+import { WCIconComponent } from './goa-icon/goa-icon.component';
+import { WCIconButtonComponent } from './goa-icon-button/goa-icon-button.component';
 
 @NgModule({
   imports: [
@@ -23,6 +25,8 @@ import {  defineCustomElements } from "ionicons/dist/loader";
     WCDropdownItemComponent,
     WCContainerComponent,
     WCButtonComponent,
+    WCIconComponent,
+    WCIconButtonComponent,
   ],
   declarations: [
     GoABadgeComponent,
@@ -32,6 +36,8 @@ import {  defineCustomElements } from "ionicons/dist/loader";
     WCDropdownItemComponent,
     WCContainerComponent,
     WCButtonComponent,
+    WCIconComponent,
+    WCIconButtonComponent,
   ],
   providers: [
   ],
@@ -40,6 +46,6 @@ import {  defineCustomElements } from "ionicons/dist/loader";
 export class ExperimentalComponentsModule { }
 
 //https://github.com/ionic-team/ionicons/issues/769
-defineCustomElements(window, {
-  resourcesUrl: "assets/ionicons/"
-});
+// defineCustomElements(window, {
+//   resourcesUrl: "assets/ionicons/"
+// });
