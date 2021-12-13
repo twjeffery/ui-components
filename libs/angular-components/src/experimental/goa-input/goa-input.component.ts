@@ -11,7 +11,8 @@ import "goa-web-components"
     {       provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => WCInputComponent),
             multi: true
-    }
+    },
+  ]
 })
 export class WCInputComponent implements OnInit, ControlValueAccessor {
 
@@ -48,6 +49,7 @@ export class WCInputComponent implements OnInit, ControlValueAccessor {
       this._value = newVal;
       this.onChange?.(newVal);
       this.valueChanged.emit(newVal);
+      console.log(newVal);
     }
 
   }
@@ -55,9 +57,6 @@ export class WCInputComponent implements OnInit, ControlValueAccessor {
   get value():string | undefined | null{
     return this._value;
   }
-
-
-
 
 
   @Output()
@@ -73,7 +72,7 @@ export class WCInputComponent implements OnInit, ControlValueAccessor {
     this.input.addEventListener('on:change', (state: CustomEvent) => {
 
       const {  value } = state.detail.data;
-      console.log(state.detail.data);
+      console.log(state.detail.data.value);
       this.valueChanged.emit(value);
     });
 
@@ -85,6 +84,7 @@ export class WCInputComponent implements OnInit, ControlValueAccessor {
   }
 
 
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   onChange: (newValue?: string | null) => void;
 
   writeValue(value: string): void {
@@ -94,6 +94,7 @@ export class WCInputComponent implements OnInit, ControlValueAccessor {
     this.onChange = handler;
   }
 
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   onTouched: () => void;
   registerOnTouched(handler: () => void): void {
     this.onTouched = handler;

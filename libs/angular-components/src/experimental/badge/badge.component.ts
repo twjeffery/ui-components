@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'goa-badge',
+  selector: 'goa-badge-old',
   templateUrl: './badge.component.html',
   styleUrls: ['./badge.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

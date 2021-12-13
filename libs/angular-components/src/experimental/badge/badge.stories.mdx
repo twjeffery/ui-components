@@ -58,7 +58,7 @@ The badge was designed to contain a text and/or an icon.
   >
     {(args) => {
       return {
-        template: `<goa-badge [type]="type">
+        template: `<goa-badge-old [type]="type">
                       <i class="goa-badge-icon">
                         <svg width="14px" height="14px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
                           <defs>
@@ -69,7 +69,7 @@ The badge was designed to contain a text and/or an icon.
                         </svg>
                       </i>
                       {{content}}
-                    </goa-badge>`,
+                    </goa-badge-old>`,
         props: args,
       };
     }}

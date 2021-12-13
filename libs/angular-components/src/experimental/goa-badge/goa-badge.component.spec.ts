@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WCInputComponent } from './goa-input.component';
+import { WCBadgeComponent } from './goa-badge.component';
 
-describe('WCInputComponent', () => {
-  let component: WCInputComponent;
-  let fixture: ComponentFixture<WCInputComponent>;
+describe('WCBadgeComponent', () => {
+  let component: WCBadgeComponent;
+  let fixture: ComponentFixture<WCBadgeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WCInputComponent ]
+      declarations: [ WCBadgeComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WCInputComponent);
+    fixture = TestBed.createComponent(WCBadgeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
