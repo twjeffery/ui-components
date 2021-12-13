@@ -1,0 +1,59 @@
+import {
+  Meta,
+  Canvas,
+  Story,
+  ArgsTable,
+  Description,
+} from '@storybook/addon-docs/blocks';
+import { moduleMetadata } from '@storybook/angular';
+import { action } from '@storybook/addon-actions';
+import { WCButtonGroupComponent } from './goa-button-group.component';
+import { ExperimentalComponentsModule } from '../components.module.ts';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import 'goa-web-components';
+
+<Meta
+  title="Experimental/Components/WC Button Group"
+  component={WCButtonGroupComponent}
+  decorators={[
+    moduleMetadata({
+      imports: [ExperimentalComponentsModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }),
+  ]}
+  argTypes={{}}
+/>
+
+export const Template = (args) => {
+  return {
+    template: `
+    <goa-ng-button-group [alignment]="end">
+      <goa-ng-button text='Cancel' size="large" type="tertiary" (clicked)="myTest"> </goa-ng-button>
+      <goa-ng-button text='Save' size="large" type="primary" (clicked)="myTest"> </goa-ng-button>
+    </goa-ng-button-group>
+    `,
+    props: args,
+  };
+};
+
+<Story
+  name="Start"
+  args={{
+    end: "start"
+  }}
+>
+  {Template.bind({})}
+</Story>
+
+
+
+<Story
+  name="End"
+  args={{
+    end: "end"
+  }}
+>
+  {Template.bind({})}
+</Story>
+
+

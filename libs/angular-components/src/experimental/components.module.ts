@@ -13,6 +13,7 @@ import { WCIconComponent } from './goa-icon/goa-icon.component';
 import { WCIconButtonComponent } from './goa-icon-button/goa-icon-button.component';
 import { WCInputComponent } from './goa-input/goa-input.component';
 import { WCBadgeComponent } from './goa-badge/goa-badge.component';
+import { WCButtonGroupComponent } from './goa-button-group/goa-button-group.component';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { WCBadgeComponent } from './goa-badge/goa-badge.component';
     WCIconButtonComponent,
     WCInputComponent,
     WCBadgeComponent,
+    WCButtonGroupComponent,
   ],
   declarations: [
     GoABadgeComponent,
@@ -44,6 +46,7 @@ import { WCBadgeComponent } from './goa-badge/goa-badge.component';
     WCIconButtonComponent,
     WCInputComponent,
     WCBadgeComponent,
+    WCButtonGroupComponent,
   ],
   providers: [
   ],
