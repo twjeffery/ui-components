@@ -11,6 +11,7 @@ import { WCButtonComponent } from './goa-button/goa-button.component';
 //import {  defineCustomElements } from "ionicons/dist/loader";
 import { WCIconComponent } from './goa-icon/goa-icon.component';
 import { WCIconButtonComponent } from './goa-icon-button/goa-icon-button.component';
+import { WCInputComponent } from './goa-input/goa-input.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { WCIconButtonComponent } from './goa-icon-button/goa-icon-button.compone
     WCButtonComponent,
     WCIconComponent,
     WCIconButtonComponent,
+    WCInputComponent,
   ],
   declarations: [
     GoABadgeComponent,
@@ -38,6 +40,7 @@ import { WCIconButtonComponent } from './goa-icon-button/goa-icon-button.compone
     WCButtonComponent,
     WCIconComponent,
     WCIconButtonComponent,
+    WCInputComponent,
   ],
   providers: [
   ],

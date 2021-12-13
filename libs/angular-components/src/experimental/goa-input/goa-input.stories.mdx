@@ -1,3 +1,4 @@
+
 import {
   Meta,
   Canvas,
@@ -7,14 +8,14 @@ import {
 } from '@storybook/addon-docs/blocks';
 import { moduleMetadata } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
-import { WCIconComponent } from './goa-icon.component';
+import { WCInputComponent } from './goa-input.component';
 import { ExperimentalComponentsModule } from '../components.module.ts';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import 'goa-web-components';
 
 <Meta
-  title="Experimental/Components/WCIcon"
-  component={WCIconComponent}
+  title="Experimental/Components/WC Input"
+  component={WCInputComponent}
   decorators={[
     moduleMetadata({
       imports: [ExperimentalComponentsModule],
@@ -27,9 +28,7 @@ import 'goa-web-components';
 export const Template = (args) => {
   return {
     template: `
-    <goa-ng-icon [type]="type" [size]="size"></goa-ng-icon>
-    <div> this is a test</div>
-    `,
+   <goa-ng-input [id]="id" [name]="name" [value]="value"  [trailingicon]="trailingicon" [handletrailingiconclick]="handletrailingiconclick" > </goa-ng-input>`,
     props: args,
   };
 };
@@ -37,10 +36,12 @@ export const Template = (args) => {
 <Story
   name="Basic"
   args={{
-    type: "alarm",
-    size: "large",
+    id: "testId",
+    name: "testName",
+    handletrailingiconclick: true,
+    trailingicon: "open",
+    value: "Yabba Dabba do"
   }}
 >
   {Template.bind({})}
 </Story>
-
