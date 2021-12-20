@@ -22,7 +22,7 @@ import { ConnectedPosition } from '@angular/cdk/overlay';
  * selector: goa-dropdown
  */
 @Component({
-  selector: 'goa-dropdown1',
+  selector: 'goa-dropdown-old',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss']
 })

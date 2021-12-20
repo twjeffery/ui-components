@@ -16,7 +16,7 @@ interface CardItem {
  * A wrapper/group for a set of card display
  */
 @Component({
-  selector: 'goa-card-group',
+  selector: 'goa-card-group-old',
   templateUrl: './card.group.component.html',
   styleUrls: ['./card.group.component.scss'],
 })

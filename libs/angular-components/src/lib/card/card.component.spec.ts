@@ -13,11 +13,11 @@ describe('GoACard', () => {
 
   test('should render header', async () => {
     await render(GoACardComponent, {
-      template: `<goa-card>
+      template: `<goa-card-old>
                   <goa-card-thumb-image url="${thumbUrl}" alt="${thumbAlt}"></goa-card-thumb-image>
                   <goa-card-header>${headerContent}</goa-card-header>
-                  <goa-card-content>${content}</goa-card-content>
-                </goa-card>`,
+                  <goa-card-content-old>${content}</goa-card-content-old>
+                </goa-card-old>`,
       declarations: [GoACardComponent, GoACardHeaderComponent, GoACardContentComponent, GoACardThumbImageComponent]
     });
 
@@ -26,11 +26,11 @@ describe('GoACard', () => {
 
   test('should render content', async () => {
     await render(GoACardComponent, {
-      template: `<goa-card>
+      template: `<goa-card-old>
                   <goa-card-thumb-image url="${thumbUrl}" alt="${thumbAlt}"></goa-card-thumb-image>
                   <goa-card-header>${headerContent}</goa-card-header>
-                  <goa-card-content>${content}</goa-card-content>
-                </goa-card>`,
+                  <goa-card-content-old>${content}</goa-card-content-old>
+                </goa-card-old>`,
       declarations: [GoACardComponent, GoACardHeaderComponent, GoACardContentComponent, GoACardThumbImageComponent]
     });
 
@@ -39,11 +39,11 @@ describe('GoACard', () => {
 
   test('should render thumb', async () => {
     await render(GoACardComponent, {
-      template: `<goa-card>
+      template: `<goa-card-old>
                   <goa-card-thumb-image url="${thumbUrl}" alt="${thumbAlt}"></goa-card-thumb-image>
                   <goa-card-header>${headerContent}</goa-card-header>
-                  <goa-card-content>${content}</goa-card-content>
-                </goa-card>`,
+                  <goa-card-content-old>${content}</goa-card-content-old>
+                </goa-card-old>`,
       declarations: [GoACardComponent, GoACardHeaderComponent, GoACardContentComponent, GoACardThumbImageComponent]
     });
 
@@ -52,11 +52,11 @@ describe('GoACard', () => {
 
   test('cardSize default should size full', async () => {
     await render(GoACardComponent, {
-      template: `<goa-card>
+      template: `<goa-card-old>
                   <goa-card-thumb-image url="${thumbUrl}" alt="${thumbAlt}"></goa-card-thumb-image>
                   <goa-card-header>${headerContent}</goa-card-header>
-                  <goa-card-content>${content}</goa-card-content>
-                </goa-card>`,
+                  <goa-card-content-old>${content}</goa-card-content-old>
+                </goa-card-old>`,
       declarations: [GoACardComponent, GoACardHeaderComponent, GoACardContentComponent, GoACardThumbImageComponent]
     });
 
@@ -72,8 +72,8 @@ describe('GoACard', () => {
       template: `<goa-card cardSize="full">
                   <goa-card-thumb-image url="${thumbUrl}" alt="${thumbAlt}"></goa-card-thumb-image>
                   <goa-card-header>${headerContent}</goa-card-header>
-                  <goa-card-content>${content}</goa-card-content>
-                </goa-card>`,
+                  <goa-card-content-old>${content}</goa-card-content-old>
+                </goa-card-old>`,
       declarations: [GoACardComponent, GoACardHeaderComponent, GoACardContentComponent, GoACardThumbImageComponent]
     });
 
@@ -83,14 +83,14 @@ describe('GoACard', () => {
     expect(card.classList).not.toContain(halfClassName);
     expect(card.classList).not.toContain(autoClassName);
   });
-  
+
   test('cardSize auto should size auto', async () => {
     await render(GoACardComponent, {
       template: `<goa-card cardSize="auto">
                   <goa-card-thumb-image url="${thumbUrl}" alt="${thumbAlt}"></goa-card-thumb-image>
                   <goa-card-header>${headerContent}</goa-card-header>
-                  <goa-card-content>${content}</goa-card-content>
-                </goa-card>`,
+                  <goa-card-content-old>${content}</goa-card-content-old>
+                </goa-card-old>`,
       declarations: [GoACardComponent, GoACardHeaderComponent, GoACardContentComponent, GoACardThumbImageComponent]
     });
 

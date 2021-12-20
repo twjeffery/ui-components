@@ -23,7 +23,7 @@ import { action } from '@storybook/addon-actions';
   component={GoACardComponent}
   argTypes={{
     content: {
-      description: 'Content inside of the goa-card-content component.',
+      description: 'Content inside of the oa-card-content-old component.',
       control: 'text',
     },
     headerContent: {
@@ -67,10 +67,10 @@ import { action } from '@storybook/addon-actions';
   >
     {(args) => {
       return {
-        template: `<goa-card [cardSize]="cardSize">
+        template: `<goa-card-old [cardSize]="cardSize">
                         <goa-card-header>{{headerContent}}</goa-card-header>
                         <goa-card-thumb-image url="working-in-cold-hero-3_rdax_75.jpg" alt="hero pic"></goa-card-thumb-image>
-                        <goa-card-content>
+                        <goa-card-content-old>
                           <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                           <ul>
                             <li>
@@ -83,12 +83,12 @@ import { action } from '@storybook/addon-actions';
                               Item 3
                             </li>
                           </ul>
-                        </goa-card-content>
+                        </goa-card-content-old>
                         <goa-card-footer>
                           <button style="margin: 12px 12px 0 0;" goa-button buttonSize="small" buttonType="tertiary">Action 1</button>
                           <button style="margin: 12px 12px 0 0;" goa-button buttonSize="small" buttonType="tertiary">Action 2</button>
                         </goa-card-footer>
-                    </goa-card>`,
+                    </goa-card-old> `,
         props: args,
       };
     }}
@@ -110,14 +110,14 @@ import { action } from '@storybook/addon-actions';
   >
     {(args) => {
       return {
-        template: `<goa-card [cardSize]="cardSize">
+        template: `<goa-card-old [cardSize]="cardSize">
                         <goa-card-header>{{headerContent}}</goa-card-header>
-                        <goa-card-content>{{content}}</goa-card-content>
+                        <goa-card-content-old>{{content}}</goa-card-content-old>
                         <goa-card-footer>
                           <button style="margin: 12px 12px 0 0;" goa-button buttonSize="small" buttonType="tertiary">Action 1</button>
                           <button style="margin: 12px 12px 0 0;" goa-button buttonSize="small" buttonType="tertiary">Action 2</button>
                         </goa-card-footer>
-                    </goa-card>`,
+                    </goa-card-old> `,
         props: args,
       };
     }}
@@ -140,11 +140,11 @@ import { action } from '@storybook/addon-actions';
   >
     {(args) => {
       return {
-        template: `<goa-card [cardSize]="cardSize">
+        template: `<goa-card-old [cardSize]="cardSize">
                         <goa-card-thumb-image url="working-in-cold-hero-3_rdax_75.jpg" alt="hero pic"></goa-card-thumb-image>
                         <goa-card-header>{{headerContent}}</goa-card-header>
-                        <goa-card-content>{{content}}</goa-card-content>
-                    </goa-card>`,
+                        <goa-card-content-old>{{content}}</goa-card-content-old>
+                    </goa-card-old> `,
         props: args,
       };
     }}
@@ -166,15 +166,15 @@ import { action } from '@storybook/addon-actions';
   >
     {(args) => {
       return {
-        template: `<goa-card [cardSize]="cardSize">
+        template: `<goa-card-old [cardSize]="cardSize">
                         <goa-card-thumb-image url="working-in-cold-hero-3_rdax_75.jpg" alt="hero pic"></goa-card-thumb-image>
                         <goa-card-header>{{headerContent}}</goa-card-header>
-                        <goa-card-content>{{content}}</goa-card-content>
+                        <goa-card-content-old>{{content}}</goa-card-content-old>
                         <goa-card-footer>
                           <button style="margin: 12px 12px 0 0;" goa-button buttonSize="small" buttonType="tertiary">Action 1</button>
                           <button style="margin: 12px 12px 0 0;" goa-button buttonSize="small" buttonType="tertiary">Action 2</button>
                         </goa-card-footer>
-                    </goa-card>`,
+                    </goa-card-old> `,
         props: args,
       };
     }}
@@ -188,33 +188,33 @@ import { action } from '@storybook/addon-actions';
     {(args) => {
       return {
         template: `<div style="display:flex;">
-                      <goa-card style="margin: 28px; width:200px;">
+                      <goa-card-old style="margin: 28px; width:200px;">
                           <goa-card-thumb-image url="working-in-cold-hero-3_rdax_75.jpg" alt="hero pic"></goa-card-thumb-image>
                           <goa-card-header>Energy Diversification Act</goa-card-header>
-                          <goa-card-content>Fixed width.  Height scales to parent container.</goa-card-content>
+                          <goa-card-content-old>Fixed width.  Height scales to parent container.</goa-card-content-old>
                         <goa-card-footer>
                           <button style="margin: 12px 12px 0 0;" goa-button buttonSize="small" buttonType="tertiary">Action 1</button>
                           <button style="margin: 12px 12px 0 0;" goa-button buttonSize="small" buttonType="tertiary">Action 2</button>
                         </goa-card-footer>
-                      </goa-card>
-                      <goa-card style="margin: 28px;">
+                      </goa-card-old>
+                      <goa-card-old style="margin: 28px;">
                           <goa-card-thumb-image url="working-in-cold-hero-3_rdax_75.jpg" alt="hero pic"></goa-card-thumb-image>
                           <goa-card-header>Energy Diversification Act</goa-card-header>
-                          <goa-card-content>Auto width.</goa-card-content>
+                          <goa-card-content-old>Auto width.</goa-card-content-old>
                         <goa-card-footer>
                           <button style="margin: 12px 12px 0 0;" goa-button buttonSize="small" buttonType="tertiary">Action 1</button>
                           <button style="margin: 12px 12px 0 0;" goa-button buttonSize="small" buttonType="tertiary">Action 2</button>
                         </goa-card-footer>
-                      </goa-card>
-                      <goa-card style="flex: 1 0 0; margin: 28px;">
+                      </goa-card-old>
+                      <goa-card-old style="flex: 1 0 0; margin: 28px;">
                           <goa-card-thumb-image url="working-in-cold-hero-3_rdax_75.jpg" alt="hero pic"></goa-card-thumb-image>
                           <goa-card-header>Energy Diversification Act</goa-card-header>
-                          <goa-card-content>Flex grow.  Note, when card uses cardImage the image height will scale to maintain aspect ratio.</goa-card-content>
+                          <goa-card-content-old>Flex grow.  Note, when card uses cardImage the image height will scale to maintain aspect ratio.</goa-card-content-old>
                         <goa-card-footer>
                           <button style="margin: 12px 12px 0 0;" goa-button buttonSize="small" buttonType="tertiary">Action 1</button>
                           <button style="margin: 12px 12px 0 0;" goa-button buttonSize="small" buttonType="tertiary">Action 2</button>
                         </goa-card-footer>
-                      </goa-card>
+                      </goa-card-old>
                     </div>`,
         props: args,
       };
@@ -238,7 +238,7 @@ promote a call to action.
 <goa-card>
   <goa-card-thumb-image url="test" alt="Alt"></goa-card-thumb-image>
   <goa-card-header>Energy Diversification Act</goa-card-header>
-  <goa-card-content>Content</goa-card-content>
+  <goa-card-content-old>Content</goa-card-content-old>
   <goa-card-footer
     ><button goa-button buttonSize="small" buttonType="tertiary">
       Action 1
@@ -252,7 +252,7 @@ promote a call to action.
 ```html
 <goa-card>
   <goa-card-header>Energy Diversification Act</goa-card-header>
-  <goa-card-content>Content</goa-card-content>
+  <goa-card-content-old>Content</goa-card-content-old>
   <goa-card-footer
     ><button goa-button buttonSize="small" buttonType="tertiary">
       Action 1
@@ -265,48 +265,48 @@ promote a call to action.
 
 ```html
 <div style="display:flex;">
-  <goa-card style="margin: 28px; width:200px;">
+  <goa-card-old style="margin: 28px; width:200px;">
     <goa-card-thumb-image
       url="working-in-cold-hero-3_rdax_75.jpg"
       alt="hero pic"
     ></goa-card-thumb-image>
     <goa-card-header>Energy Diversification Act</goa-card-header>
-    <goa-card-content
+    <goa-card-content-old
       >Fixed width. Note, when card uses cardImage the image height will scale
-      to maintain aspect ratio.</goa-card-content
+      to maintain aspect ratio.</goa-card-content-old
     >
     <goa-card-footer
       ><button goa-button buttonSize="small" buttonType="tertiary">
         Action 1
       </button></goa-card-footer
     >
-  </goa-card>
-  <goa-card style="margin: 28px;">
+  </goa-card-old>
+  <goa-card-old style="margin: 28px;">
     <goa-card-thumb-image
       url="working-in-cold-hero-3_rdax_75.jpg"
       alt="hero pic"
     ></goa-card-thumb-image>
     <goa-card-header>Energy Diversification Act</goa-card-header>
-    <goa-card-content>Auto width.</goa-card-content>
+    <goa-card-content-old>Auto width.</goa-card-content-old>
     <goa-card-footer
       ><button goa-button buttonSize="small" buttonType="tertiary">
         Action 1
       </button></goa-card-footer
     >
-  </goa-card>
-  <goa-card style="flex: 1 0 0; margin: 28px;">
+  </goa-card-old>
+  <goa-card-old style="flex: 1 0 0; margin: 28px;">
     <goa-card-thumb-image
       url="working-in-cold-hero-3_rdax_75.jpg"
       alt="hero pic"
     ></goa-card-thumb-image>
     <goa-card-header>Energy Diversification Act</goa-card-header>
-    <goa-card-content>Flex grow.</goa-card-content>
+    <goa-card-content-old>Flex grow.</goa-card-content-old>
     <goa-card-footer
       ><button goa-button buttonSize="small" buttonType="tertiary">
         Action 1
       </button></goa-card-footer
     >
-  </goa-card>
+  </goa-card-old>
 </div>
 ```
 

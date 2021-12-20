@@ -14,6 +14,12 @@ import { WCIconButtonComponent } from './goa-icon-button/goa-icon-button.compone
 import { WCInputComponent } from './goa-input/goa-input.component';
 import { WCBadgeComponent } from './goa-badge/goa-badge.component';
 import { WCButtonGroupComponent } from './goa-button-group/goa-button-group.component';
+import { WCCalloutComponent } from './goa-callout/goa-callout.component';
+import { WCCardComponent } from './goa-card/goa-card.component';
+import { WCCardActionsComponent } from './goa-card/goa-card-actions/goa-card-actions.component';
+import { WCCardContentComponent } from './goa-card/goa-card-content/goa-card-content.component';
+import { WCCardImageComponent } from './goa-card/goa-card-image/goa-card-image.component';
+import { GoaCardGroupComponent } from './goa-card-group/goa-card-group.component';
 
 @NgModule({
   imports: [
@@ -33,6 +39,12 @@ import { WCButtonGroupComponent } from './goa-button-group/goa-button-group.comp
     WCInputComponent,
     WCBadgeComponent,
     WCButtonGroupComponent,
+    WCCalloutComponent,
+    WCCardComponent,
+    WCCardActionsComponent,
+    WCCardContentComponent,
+    WCCardImageComponent,
+    GoaCardGroupComponent,
   ],
   declarations: [
     GoABadgeComponent,
@@ -47,6 +59,12 @@ import { WCButtonGroupComponent } from './goa-button-group/goa-button-group.comp
     WCInputComponent,
     WCBadgeComponent,
     WCButtonGroupComponent,
+    WCCalloutComponent,
+    WCCardComponent,
+    WCCardActionsComponent,
+    WCCardContentComponent,
+    WCCardImageComponent,
+    GoaCardGroupComponent,
   ],
   providers: [
   ],

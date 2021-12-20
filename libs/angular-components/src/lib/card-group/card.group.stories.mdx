@@ -63,7 +63,7 @@ A hierarchy of actions provided by buttons.
     {(args) => {
       return {
         template: `
-          <goa-card-group [title]="title" [layout]="layout">
+          <goa-card-group-old [title]="title" [layout]="layout">
             <goa-card style="margin: 10px;" titleUrl="https://www.google.com">
               <goa-card-thumb-image
                 url="working-in-cold-hero-3_rdax_75.jpg"
@@ -105,7 +105,7 @@ A hierarchy of actions provided by buttons.
                 </button></goa-card-footer
               >
             </goa-card>
-          </goa-card-group>
+          </goa-card-group-old>
         `,
         props: args,
       };
@@ -148,7 +148,7 @@ A hierarchy of actions provided by buttons.
     {(args) => {
       return {
         template: `
-          <goa-card-group [title]="title" [layout]="layout" [cardItems]="cardItems"></goa-card-group>
+          <goa-card-group-old [title]="title" [layout]="layout" [cardItems]="cardItems"></goa-card-group-old>
         `,
         props: args,
       };
@@ -164,11 +164,11 @@ Pass card group data as children components.
 
 ### Column
 
-`<goa-card-group title="Dashboard" layout="column"> <goa-card title="Energy Diversification Act 1" description="We are encouraging companies to turn out oil and gas resources into more valuable products-creating good jobs for Albertans." titleUrl="http://www.google.ca" cardWidth={400} cardImageUrl="working-in-cold-hero-3_rdax_75.jpg" /> <goa-card description="We are encouraging companies to turn out oil and gas resources into more valuable products-creating good jobs for Albertans." titleUrl="http://www.google.ca" cardWidth={400} cardImageUrl="working-in-cold-hero-3_rdax_75.jpg" /> <goa-card style="margin: 28px; width:200px;"> C </goa-card> </goa-card-group> `
+`<goa-card-group-old title="Dashboard" layout="column"> <goa-card title="Energy Diversification Act 1" description="We are encouraging companies to turn out oil and gas resources into more valuable products-creating good jobs for Albertans." titleUrl="http://www.google.ca" cardWidth={400} cardImageUrl="working-in-cold-hero-3_rdax_75.jpg" /> <goa-card description="We are encouraging companies to turn out oil and gas resources into more valuable products-creating good jobs for Albertans." titleUrl="http://www.google.ca" cardWidth={400} cardImageUrl="working-in-cold-hero-3_rdax_75.jpg" /> <goa-card style="margin: 28px; width:200px;"> C </goa-card> </goa-card-group-old> `
 
 ### Basic
 
-`<goa-card-group title="Dashboard" layout="basic"> <goa-card title="Energy Diversification Act 1" description="We are encouraging companies to turn out oil and gas resources into more valuable products-creating good jobs for Albertans." titleUrl="http://www.google.ca" cardWidth={400} cardImageUrl="working-in-cold-hero-3_rdax_75.jpg" /> <goa-card description="We are encouraging companies to turn out oil and gas resources into more valuable products-creating good jobs for Albertans." titleUrl="http://www.google.ca" cardWidth={400} cardImageUrl="working-in-cold-hero-3_rdax_75.jpg" /> <goa-card style="margin: 28px; width:200px;"> C </goa-card> </goa-card-group> `
+`<goa-card-group-old title="Dashboard" layout="basic"> <goa-card title="Energy Diversification Act 1" description="We are encouraging companies to turn out oil and gas resources into more valuable products-creating good jobs for Albertans." titleUrl="http://www.google.ca" cardWidth={400} cardImageUrl="working-in-cold-hero-3_rdax_75.jpg" /> <goa-card description="We are encouraging companies to turn out oil and gas resources into more valuable products-creating good jobs for Albertans." titleUrl="http://www.google.ca" cardWidth={400} cardImageUrl="working-in-cold-hero-3_rdax_75.jpg" /> <goa-card style="margin: 28px; width:200px;"> C </goa-card> </goa-card-group-old> `
 
 ## Properties
 

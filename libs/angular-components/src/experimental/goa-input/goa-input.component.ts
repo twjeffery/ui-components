@@ -60,7 +60,7 @@ export class WCInputComponent implements OnInit, ControlValueAccessor {
 
 
   @Output()
-  valueChanged: EventEmitter< any | undefined | null> = new EventEmitter();
+  valueChanged: EventEmitter< string | undefined | null> = new EventEmitter();
 
   @Output()
   iconButtonClicked: EventEmitter< any | undefined | null> = new EventEmitter();
@@ -73,7 +73,8 @@ export class WCInputComponent implements OnInit, ControlValueAccessor {
 
       const {  value } = state.detail.data;
       console.log(state.detail.data.value);
-      this.valueChanged.emit(value);
+      this.value = value.value;
+
     });
 
     this.input.addEventListener('on:trailingIconClick', (state: CustomEvent) => {

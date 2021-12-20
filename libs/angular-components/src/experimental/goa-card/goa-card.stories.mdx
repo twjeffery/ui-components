@@ -1,0 +1,61 @@
+import {
+  Meta,
+  Canvas,
+  Story,
+  ArgsTable,
+  Description,
+} from '@storybook/addon-docs/blocks';
+import { moduleMetadata } from '@storybook/angular';
+import { action } from '@storybook/addon-actions';
+import { WCCardComponent, WCCardActionsComponent, WCCardContentComponents,WCCardImageComponent  } from './goa-card.component';
+import { ExperimentalComponentsModule } from '../components.module.ts';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import 'goa-web-components';
+
+<Meta
+  title="Experimental/Components/WC Card"
+  component={WCCardComponent}
+  decorators={[
+    moduleMetadata({
+      imports: [ExperimentalComponentsModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }),
+  ]}
+  argTypes={{}}
+/>
+
+export const Template = (args) => {
+  return {
+    template: `<goa-ng-card-group>
+        <goa-ng-card [elevation]="elevation">
+        <goa-ng-card-content>
+          This is card content
+        </goa-ng-card-content>
+        <goa-ng-card-image height="160px" [src]="src" alt="Card image" ></goa-ng-card-image>
+        <goa-ng-card-actions>
+          <goa-button size="small">Button</goa-button>
+        </goa-ng-card-actions>
+      </goa-ng-card>
+      <goa-ng-card [elevation]=4>
+        <goa-ng-card-content>
+          This is card content
+        </goa-ng-card-content>
+        <goa-ng-card-image height="160px" [src]="src" alt="Card image" ></goa-ng-card-image>
+        <goa-ng-card-actions>
+          <goa-button size="small">Button</goa-button>
+        </goa-ng-card-actions></goa-ng-card>
+    </goa-ng-card-group>
+    `,
+    props: args,
+  };
+};
+
+<Story
+  name="Card Group"
+  args={{
+    elevation: 4,
+    src: "https://picsum.photos/id/1076/600/400",
+  }}
+>
+  {Template.bind({})}
+</Story>

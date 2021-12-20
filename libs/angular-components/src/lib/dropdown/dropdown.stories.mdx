@@ -107,7 +107,7 @@ A user input field that allows the user one selected option from a large list of
       };
       return {
         template: `<span style="width:300px;display:inline-block;">
-                    <goa-dropdown1
+                    <goa-dropdown-old
                         (selectionChange)="onSelectionChanged($event)"
                         [typeaheadMode]="typeaheadMode"
                         [menuHeight]="menuHeight"
@@ -127,7 +127,7 @@ A user input field that allows the user one selected option from a large list of
                       <goa-option id='papayas' [value]='{fruit: "papayas"}' label="Papayas">Papayas</goa-option>
                       <goa-option id='bananas' [value]='{fruit: "bananas"}' label="Bananas">Bananas</goa-option>
                       <goa-option id='pineapples' [value]='{fruit: "pineapples"}' label="Pineapples">Pineapples</goa-option>
-                    </goa-dropdown1>
+                    </goa-dropdown-old>
                   </span>`,
         props: args,
       };
@@ -156,7 +156,7 @@ A user input field that allows the user one selected option from a large list of
       };
       return {
         template: `<span style="width:300px;display:inline-block;">
-                    <goa-dropdown1
+                    <goa-dropdown-old
                         (selectionChange)="onSelectionChanged($event)"
                         [typeaheadMode]="typeaheadMode"
                         [menuHeight]="menuHeight"
@@ -176,7 +176,7 @@ A user input field that allows the user one selected option from a large list of
                       <goa-option id='papayas' [value]='{fruit: "papayas"}' label="Papayas">Papayas</goa-option>
                       <goa-option id='bananas' [value]='{fruit: "bananas"}' label="Bananas">Bananas</goa-option>
                       <goa-option id='pineapples' [value]='{fruit: "pineapples"}' label="Pineapples">Pineapples</goa-option>
-                    </goa-dropdown1>
+                    </goa-dropdown-old>
                   </span>`,
         props: args,
       };
@@ -205,7 +205,7 @@ A user input field that allows the user one selected option from a large list of
       };
       return {
         template: `<span style="width:300px;display:inline-block;">
-                    <goa-dropdown1
+                    <goa-dropdown-old
                         (selectionChange)="onSelectionChanged($event)"
                         [typeaheadMode]="typeaheadMode"
                         [menuHeight]="menuHeight"
@@ -225,7 +225,7 @@ A user input field that allows the user one selected option from a large list of
                       <goa-option id='papayas' [value]='{fruit: "papayas"}' label="Papayas">Papayas</goa-option>
                       <goa-option id='bananas' [value]='{fruit: "bananas"}' label="Bananas">Bananas</goa-option>
                       <goa-option id='pineapples' [value]='{fruit: "pineapples"}' label="Pineapples">Pineapples</goa-option>
-                    </goa-dropdown1>
+                    </goa-dropdown-old>
                   </span>`,
         props: args,
       };
@@ -254,7 +254,7 @@ A user input field that allows the user one selected option from a large list of
       };
       return {
         template: `<span style="width:300px;display:inline-block;">
-                    <goa-dropdown1
+                    <goa-dropdown-old
                         (selectionChange)="onSelectionChanged($event)"
                         [typeaheadMode]="typeaheadMode"
                         [menuHeight]="menuHeight"
@@ -274,7 +274,7 @@ A user input field that allows the user one selected option from a large list of
                       <goa-option id='papayas' [value]='{fruit: "papayas"}' label="Papayas">Papayas</goa-option>
                       <goa-option id='bananas' [value]='{fruit: "bananas"}' label="Bananas">Bananas</goa-option>
                       <goa-option id='pineapples' [value]='{fruit: "pineapples"}' label="Pineapples">Pineapples</goa-option>
-                    </goa-dropdown1>
+                    </goa-dropdown-old>
                   </span>`,
         props: args,
       };
@@ -303,7 +303,7 @@ A user input field that allows the user one selected option from a large list of
       };
       return {
         template: `<span style="width:300px;display:inline-block;">
-                    <goa-dropdown1
+                    <goa-dropdown-old
                         (selectionChange)="onSelectionChanged($event)"
                         [typeaheadMode]="typeaheadMode"
                         [menuHeight]="menuHeight"
@@ -323,7 +323,7 @@ A user input field that allows the user one selected option from a large list of
                       <goa-option id='papayas' [value]='{fruit: "papayas"}' label="Papayas">Papayas</goa-option>
                       <goa-option id='bananas' [value]='{fruit: "bananas"}' label="Bananas">Bananas</goa-option>
                       <goa-option id='pineapples' [value]='{fruit: "pineapples"}' label="Pineapples">Pineapples</goa-option>
-                    </goa-dropdown1>
+                    </goa-dropdown-old>
                   </span>`,
         props: args,
       };
@@ -352,7 +352,7 @@ A user input field that allows the user one selected option from a large list of
       };
       return {
         template: `<span style="width:300px;display:inline-block;">
-                    <goa-dropdown1 (selectionChange)="selectionChanged($event)"
+                    <goa-dropdown-old (selectionChange)="selectionChanged($event)"
                         [required]="required"
                         [menuHeight]="menuHeight"
                         [typeaheadMode]="typeaheadMode"
@@ -374,7 +374,7 @@ A user input field that allows the user one selected option from a large list of
                       </goa-option-group>
                       <goa-option id='bananas' [value]='{fruit: "bananas"}' label="Bananas">Bananas</goa-option>
                       <goa-option id='pineapples' [value]='{fruit: "pineapples"}' label="Pineapples">Pineapples</goa-option>
-                    </goa-dropdown1>
+                    </goa-dropdown-old>
                   </span>`,
         props: args,
       };
@@ -387,17 +387,31 @@ A user input field that allows the user one selected option from a large list of
 Basic
 
 ```html
-<goa-dropdown1 (selectionChange)="selectionChanged($event)" label="Fruits" description="Select your favourite fruit.">
-  <goa-option id='apples' [value]='{fruit: "apples"}' label='Apples'>Apples</goa-option>
-  <goa-option id='oranges' [value]='{fruit: "oranges"}' label='Oranges'><span>We can put icons or other markup</span></goa-option>
-  <goa-option id='pears' [value]='{fruit: "pears"}' label='Pears'>Pears</goa-option>
-</goa-dropdown1>
+<goa-dropdown-old
+  (selectionChange)="selectionChanged($event)"
+  label="Fruits"
+  description="Select your favourite fruit."
+>
+  <goa-option id="apples" [value]='{fruit: "apples"}' label="Apples"
+    >Apples</goa-option
+  >
+  <goa-option id="oranges" [value]='{fruit: "oranges"}' label="Oranges"
+    ><span>We can put icons or other markup</span></goa-option
+  >
+  <goa-option id="pears" [value]='{fruit: "pears"}' label="Pears"
+    >Pears</goa-option
+  >
+</goa-dropdown-old>
 ```
 
 With Grouping
 
 ```html
-<goa-dropdown1 (selectionChange)="selectionChanged($event)" label="Fruits" description="Select your favourite fruit.">
+<goa-dropdown-old
+  (selectionChange)="selectionChanged($event)"
+  label="Fruits"
+  description="Select your favourite fruit."
+>
   <goa-option-group label="Group 1">
     <goa-option id="apples" [value]='{fruit: "apples"}' label="Apples"
       >Apples</goa-option
@@ -406,16 +420,28 @@ With Grouping
       ><span>We can put icons or other markup</span></goa-option
     >
   </goa-option-group>
-  <goa-option id='pears' [value]='{fruit: "pears"}' label='Pears'>Pears</goa-option>
-</goa-dropdown1>
+  <goa-option id="pears" [value]='{fruit: "pears"}' label="Pears"
+    >Pears</goa-option
+  >
+</goa-dropdown-old>
 ```
 
 Dynamic list
 
 ```html
-<goa-dropdown1 (selectionChange)="selectionChanged($event)" label="Fruits" description="Select your favourite fruit.">
-  <goa-option *ngFor="let fruit of fruits" [id]='fruit.id' [value]='fruit' [label]='fruit.label'>{{fruit.label}}</goa-option>
-</goa-dropdown1>
+<goa-dropdown-old
+  (selectionChange)="selectionChanged($event)"
+  label="Fruits"
+  description="Select your favourite fruit."
+>
+  <goa-option
+    *ngFor="let fruit of fruits"
+    [id]="fruit.id"
+    [value]="fruit"
+    [label]="fruit.label"
+    >{{fruit.label}}</goa-option
+  >
+</goa-dropdown-old>
 ```
 
 ## Properties

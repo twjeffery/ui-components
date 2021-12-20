@@ -78,8 +78,8 @@ describe('GoA Cards with child tags', () => {
           alt="hero pic"
         ></goa-card-thumb-image>
         <goa-card-header>Energy Diversification Act 1</goa-card-header>
-        <goa-card-content
-          >We are encouraging companies to turn out oil and gas resources into more valuable products-creating good jobs for Albertans 1.</goa-card-content
+        <goa-card-content-old
+          >We are encouraging companies to turn out oil and gas resources into more valuable products-creating good jobs for Albertans 1.</goa-card-content-old
         >
         <goa-card-footer
           ><button goa-button buttonSize="small" buttonType="tertiary">
@@ -93,7 +93,7 @@ describe('GoA Cards with child tags', () => {
           alt="hero pic"
         ></goa-card-thumb-image>
         <goa-card-header>Energy Diversification Act 2</goa-card-header>
-        <goa-card-content>We are encouraging companies to turn out oil and gas resources into more valuable products-creating good jobs for Albertans 2.</goa-card-content>
+        <goa-card-content-old>We are encouraging companies to turn out oil and gas resources into more valuable products-creating good jobs for Albertans 2.</goa-card-content-old>
         <goa-card-footer
           ><button goa-button buttonSize="small" buttonType="tertiary">
             Action 1
@@ -106,7 +106,7 @@ describe('GoA Cards with child tags', () => {
           alt="hero pic"
         ></goa-card-thumb-image>
         <goa-card-header>Energy Diversification Act 3</goa-card-header>
-        <goa-card-content>We are encouraging companies to turn out oil and gas resources into more valuable products-creating good jobs for Albertans 3.</goa-card-content>
+        <goa-card-content-old>We are encouraging companies to turn out oil and gas resources into more valuable products-creating good jobs for Albertans 3.</goa-card-content-old>
         <goa-card-footer
           ><button goa-button buttonSize="small" buttonType="tertiary">
             Action 1

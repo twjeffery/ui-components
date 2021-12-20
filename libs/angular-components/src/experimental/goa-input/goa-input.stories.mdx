@@ -22,13 +22,20 @@ import 'goa-web-components';
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }),
   ]}
-  argTypes={{}}
+  argTypes={{value: {
+      control: 'string',
+      table: {
+        //tracked bug in storybook https://github.com/storybookjs/storybook/issues/11983, need table to override display
+        defaultValue: { summary: "test" },
+        type: { summary: 'string' },
+      },
+    }}}
 />
 
 export const Template = (args) => {
   return {
     template: `
-   <goa-ng-input [id]="id" [name]="name" [value]="value"  [trailingicon]="trailingicon" [handletrailingiconclick]="handletrailingiconclick" > </goa-ng-input>`,
+   <goa-ng-input [id]="id" [name]="name" [trailingicon]="trailingicon" [handletrailingiconclick]="handletrailingiconclick" [value]="value"> </goa-ng-input>`,
     props: args,
   };
 };
@@ -37,10 +44,10 @@ export const Template = (args) => {
   name="Basic"
   args={{
     id: "testId",
+    value: "Yabba Dabba do",
     name: "testName",
     handletrailingiconclick: true,
     trailingicon: "open",
-    value: "Yabba Dabba do"
   }}
 >
   {Template.bind({})}

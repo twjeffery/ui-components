@@ -1,0 +1,49 @@
+import {
+  Meta,
+  Canvas,
+  Story,
+  ArgsTable,
+  Description,
+} from '@storybook/addon-docs/blocks';
+import { moduleMetadata } from '@storybook/angular';
+import { action } from '@storybook/addon-actions';
+import { WCCalloutComponent } from './goa-callout.component';
+import { ExperimentalComponentsModule } from '../components.module.ts';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import 'goa-web-components';
+
+<Meta
+  title="Experimental/Components/WC Callout"
+  component={WCCalloutComponent}
+  decorators={[
+    moduleMetadata({
+      imports: [ExperimentalComponentsModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }),
+  ]}
+  argTypes={{}}
+/>
+
+export const Template = (args) => {
+  return {
+    template: `
+    <goa-ng-callout [type]="success">
+      <div>
+        <h3>Callout title</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, ipsum eu euismod consectetur, nisl nisl iaculis nisl, eu tincidunt nisi nisl euismod nisi. Sed euismod, ipsum eu euismod consectetur, nisl nisl iaculis nisl, eu tincidunt nisi nisl euismod nisi.</p>
+      </div>
+    </goa-ng-callout>
+    `,
+    props: args,
+  };
+};
+
+<Story
+  name="Success"
+  args={{
+    type: "success",
+  }}
+>
+  {Template.bind({})}
+</Story>
+

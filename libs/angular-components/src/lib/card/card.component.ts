@@ -11,7 +11,7 @@ export * from './content/card-content.component';
  * selector: goa-card
  */
 @Component({
-  selector: 'goa-card',
+  selector: 'goa-card-old',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
