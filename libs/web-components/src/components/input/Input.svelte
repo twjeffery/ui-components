@@ -397,8 +397,7 @@
     background-color: var(--goa-color-greyscale-white);
 
     /* default border */
-    box-shadow: inset 0 0 0 var(--goa-border-width-s)
-      var(--goa-color-greyscale-700);
+    box-shadow: inset 0 0 0 var(--goa-border-width-s) var(--goa-color-greyscale-700);
     border-radius: var(--goa-border-radius-m);
 
     /* The vertical align fixes inputs with a leading icon to not be vertically offset */
@@ -410,8 +409,7 @@
       :has(input:focus-visible)
     ) {
     /* hover border */
-    box-shadow: inset 0 0 0 var(--goa-border-width-m)
-      var(--goa-color-interactive-hover);
+    box-shadow: inset 0 0 0 var(--goa-border-width-m)var(--goa-color-interactive-hover);
   }
   .goa-input:not(.error):has(input:focus-visible) {
     /* focus border(s) */
@@ -448,7 +446,7 @@
     border: none;
 
     &.type--range:active,
-    &.type--range:focus,
+    &.type--range:focus-visible,
     &.type--range:focus-within {
       box-shadow: none;
     }
@@ -470,10 +468,8 @@
     display: inline-block;
     color: var(--goa-color-text-default);
     font-size: var(--goa-font-size-4);
-
-    padding: calc(var(--goa-space-xs) - 1px) calc(var(--goa-space-s) - 1px);
-    line-height: calc(40px - calc(var(--goa-space-xs) * 2));
-
+    line-height: 100%;
+    padding: 7px var(--goa-space-s) 9px;
     background-color: transparent;
     width: 100%;
     flex: 1 1 auto;
@@ -482,7 +478,7 @@
     border-radius: var(--goa-border-radius-m);
   }
   input,
-  input:focus,
+  input:focus-visible,
   input:hover,
   input:active {
     outline: none;
@@ -499,20 +495,26 @@
   .input--disabled,
   .input--disabled:hover,
   .input--disabled:active,
-  .input--disabled:focus {
+  .input--disabled:focus-visible {
     background-color: var(--goa-color-greyscale-100);
-    border-color: var(--goa-color-greyscale-200) !important;
+    border: 1px solid var(--goa-color-greyscale-200) !important;
     cursor: default;
     box-shadow: none !important;
   }
   .input--disabled input,
   .input--disabled input:hover,
   .input--disabled input:active,
-  .input--disabled input:focus {
+  .input--disabled input:focus-visible {
     color: var(--goa-color-text-secondary);
   }
   .input--disabled input:hover {
     cursor: default !important;
+  }
+  /* Adjust the leading icon style when input is disabled */
+  .input--disabled .leading-icon,
+  .input--disabled .trailing-icon {
+    color: var(--goa-color-text-secondary);
+    cursor: default;
   }
 
   .prefix,
@@ -557,12 +559,11 @@
   }
 
   /* this is the hover style for the leading and trailing content
-  without error */
+  without error  */
   .input-leading-content:not(.error):not(input:focus-visible):hover {
     box-shadow: inset 0 0 0 var(--goa-border-width-m)
       var(--goa-color-interactive-hover);
   }
-
   .input-trailing-content:not(.error):not(input:focus-visible):hover {
     box-shadow: inset 0 0 0 var(--goa-border-width-m)
       var(--goa-color-interactive-hover);
@@ -571,14 +572,14 @@
   /* this is the interior focus border */
 
   .input-leading-content:active,
-  .input-leading-content:focus,
+  .input-leading-content:focus-visible,
   .input-leading-content:focus-within {
     box-shadow:
       inset 0 0 0 var(--goa-border-width-s) var(--goa-color-greyscale-700),
       0 0 0 var(--goa-border-width-l) var(--goa-color-interactive-focus);
   }
   .input-trailing-content:active,
-  .input-trailing-content:focus,
+  .input-trailing-content:focus-visible,
   .input-trailing-content:focus-within {
     box-shadow:
       inset 0 0 0 var(--goa-border-width-s) var(--goa-color-greyscale-700),
@@ -610,14 +611,14 @@
     border: none;
   }
 
-  .variant--bare:focus,
+  .variant--bare:focus-visible,
   .variant--bare:active,
   .variant--bare:focus-within {
     box-shadow: none;
   }
 
   input[type="search"]:enabled:read-write:-webkit-any(
-      :focus,
+      :focus-visible,
       :hover
     )::-webkit-search-cancel-button {
     position: relative;
@@ -632,5 +633,11 @@
 
   ::-ms-reveal {
     display: none;
+  }
+
+  ::placeholder
+  {
+    color: var(--goa-color-text-secondary);
+    opacity: 1;
   }
 </style>

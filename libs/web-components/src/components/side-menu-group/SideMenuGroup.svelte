@@ -149,40 +149,100 @@
 </div>
 
 <style>
+  /* TODO: Component tokens, to move to design tokens file ------------------------------------------------------- */
+  :host {
+
+    --goa-side-menu-color-bg: var(--goa-color-greyscale-white); /*The background color of the overall side menu container.*/
+    --goa-side-menu-color-menu-item: var(--goa-color-text-default);
+    --goa-side-menu-color-bg-menu-item-hover: #cedfee; /*The background color of the menu items on hover.*/
+    --goa-side-menu-color-bg-menu-item-current: #cedfee; /*The background color of the current menu item.*/
+
+    --goa-side-menu-typography-item: var(--goa-typography-body-m); /*The typography of the menu items.*/
+    --goa-side-menu-typography-item-current: var(--goa-typography-heading-s); /*The typography of the current page.*/
+
+    --goa-side-menu-items-gap: var(--goa-space-none); /*The gap between the menu items.*/
+
+    --goa-side-menu-padding: var(--goa-space-m) var(--goa-space-none) var(--goa-space-l) var(--goa-space-none); /*Padding around the main side menu*/
+		--goa-side-menu-border-right: var(--goa-border-width-s) solid var(--goa-color-greyscale-200);; /*Border color around the side menu*/
+		--goa-side-menu-width: 256px; /*(The fixed width of the side menu.*/
+
+    --goa-side-menu-padding-item: 8px var(--goa-space-s) 10px var(--goa-space-xl);
+
+    --goa-side-menu-item-focus-border: var(--goa-border-width-l) solid var(--goa-color-interactive-focus);
+
+
+    /* Heading */
+    --goa-side-menu-heading-margin: var(--goa-space-none) 0 0 0;
+    --goa-side-menu-heading-padding: var(--goa-space-s) var(--goa-space-s) var(--goa-space-xs) var(--goa-space-l);
+    --goa-side-menu-heading-color: var(--goa-color-text-secondary);
+    --goa-side-menu-heading-color-bg: var(--goa-color-greyscale-100);
+    --goa-side-menu-heading-typography: var(--goa-typography-heading-s);
+    --goa-side-menu-heading-border: var(--goa-border-width-m) solid var(--goa-color-greyscale-200);
+    --goa-side-menu-heading-icon-gap: var(--goa-space-xs);
+    --goa-side-menu-icon-size: var(--goa-icon-size-l);
+    --goa-side-menu-icon-color: var(--goa-color-text-secondary);
+
+    /* Group */
+    --goa-side-menu-sub-item-margin: var(--goa-space-m);
+    --goa-side-menu-padding-sub-item: 8px var(--goa-space-s) 10px var(--goa-space-m);
+    --goa-side-menu-sub-item-border-left: 4px solid var(--goa-color-greyscale-100);
+    --goa-side-menu-sub-item-border-left-hover: 4px solid var(--goa-color-greyscale-200);
+    --goa-side-menu-sub-item-border-left-current: 4px solid var(--goa-color-interactive-disabled);
+
+    --goa-side-menu-sub-item-color-bg: none;
+    --goa-side-menu-sub-item-color-bg-hover: var(--goa-color-info-background);
+    --goa-side-menu-sub-item-color-bg-current: var(--goa-color-info-background);
+
+
+  }
+
+
   :global(::slotted(a)),
   :global(::slotted(goa-side-menu-heading)),
   :global(::slotted(a:visited)) {
     /* required to override base styles */
-    color: var(--goa-color-text-default) !important;
+    color: var(--goa-side-menu-color-menu-item) !important;
     display: block;
-    font: var(--goa-typography-body-m);
-    margin-left: 1rem;
     background-color: var(--goa-side-menu-group-color-bg);
+    font: var(--goa-side-menu-typography-item);
+    margin-left: var(--goa-side-menu-sub-item-margin);
   }
 
   :global(::slotted(a)),
   :global(::slotted(a:visited)) {
-    padding: 0.5rem 1rem;
+    padding: var(--goa-side-menu-padding-sub-item);
     text-decoration: none;
-    border-left: var(--goa-side-menu-child-border-width) solid var(--goa-color-greyscale-100);
+    border-left: var(--goa-side-menu-sub-item-border-left);
   }
 
   :global(::slotted(a.current)) {
-    font: var(--goa-typography-heading-s);
-    border-left: var(--goa-side-menu-child-border-width) solid var(--goa-color-interactive-disabled);
-    background: var(--goa-side-menu-child-color-bg-selected);
+    font: var(--goa-side-menu-typography-item-current);
+    border-left: var(--goa-side-menu-sub-item-border-left-current);
+    background: var(--goa-side-menu-sub-item-color-bg-current);
     /* required to override base styles & above :global(::slotted(a) !important */
     color: var(--goa-side-menu-child-color-text-selected)!important;
   }
 
   :global(::slotted(a:hover:not(.current))) {
-    background: var(--goa-side-menu-child-color-bg-hover);
-    border-color: var(--goa-color-greyscale-200);
+    background: var(--goa-side-menu-sub-item-color-bg-hover);
+    border-left: var(--goa-side-menu-sub-item-border-left-hover);
   }
 
   :global(::slotted(a:focus-visible)),
   .heading:focus-visible {
-    outline: var(--goa-border-width-l) solid var(--goa-color-interactive-focus);
+    outline: var(--goa-side-menu-item-focus-border);
+  }
+
+
+  .heading {
+    gap: var(--goa-space-xs); /* 8px - the minimum space between the text and the chevron icon */
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  goa-icon {
+    margin-top: var(--goa-space-2xs); /* vertically centering the icon with text */
   }
 
   /**
@@ -191,12 +251,12 @@
    */
   :host([child="true"]) a.heading,
   .heading {
-    color: var(--goa-color-text-default);
+    color: var(--goa-side-menu-color-menu-item);
     display: flex;
-    align-items: center;
     justify-content: space-between;
     line-height: 2rem;
-    padding: var(--goa-side-menu-parent-padding);
+    font: var(--goa-side-menu-typography-item);
+    padding: var(--goa-side-menu-padding-item);
     text-decoration: none;
     font: var(--goa-side-menu-parent-text);
     border-radius: var(--goa-side-menu-group-border-radius);
@@ -206,19 +266,19 @@
   }
 
   :host([child="true"]) a.heading {
-    margin-left: 1rem;
-    border-left: var(--goa-side-menu-child-border-width) solid var(--goa-color-greyscale-100);
-    padding: 0.5rem 1rem 0.5rem 1rem;
+    margin-left: var(--goa-side-menu-sub-item-margin);
+    border-left: var(--goa-side-menu-sub-item-border-left);
+    padding: var(--goa-side-menu-padding-sub-item);
   }
 
   :host([child="true"]) a.heading:hover {
-    border-color: var(--goa-color-greyscale-200);
-    background: var(--goa-color-info-background);
+    border-left: var(--goa-side-menu-sub-item-border-left-hover);
+    background: var(--goa-side-menu-sub-item-color-bg-hover);
   }
 
   :host([child="true"]) .side-menu-group.current a.heading {
-    background: var(--goa-color-info-background);
-    border-left: var(--goa-side-menu-child-border-width) solid var(--goa-color-interactive-disabled);
+    background: var(--goa-side-menu-sub-item-color-bg-current);
+    border-left: var(--goa-side-menu-sub-item-border-left);
   }
 
   .side-menu-group {
@@ -228,11 +288,11 @@
   }
 
   .side-menu-group.current .heading {
-    background: var(--goa-side-menu-parent-color-bg-selected);
+    background: var(--goa-side-menu-color-bg-menu-item-current);
   }
 
   .heading:hover {
-    background: var(--goa-side-menu-parent-color-bg-hover);
+    background: var(--goa-side-menu-color-bg-menu-item-hover);
   }
 
   .hidden {
@@ -240,7 +300,7 @@
   }
 
   .group {
-    padding: var(--goa-side-menu-sub-group-padding);
+    padding-left: var(--goa-side-menu-sub-item-margin);
   }
 
   .trailing-icon {

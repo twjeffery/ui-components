@@ -55,18 +55,18 @@
   let _nextMonthDays: Date[] = [];
   let _nextMonthDayCount: number;
   let _months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
+    "January",
+    "February",
+    "March",
+    "April",
     "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
   let _years: string[] = [];
   let _calendarEl: HTMLElement;
@@ -311,7 +311,8 @@
         name="month"
         arialabel={`${name} month`}
         data-testid="months"
-        width="calc(314px / 2 - 1.5rem)"
+        width="10rem"
+        maxHeight="240px"
         relative="true"
         value={_calendarDate?.getMonth()}
         on:_change={setMonth}
@@ -327,7 +328,8 @@
         name="year"
         arialabel={`${name} year`}
         data-testid="years"
-        width="calc(314px / 2 - 1.5rem)"
+        width="104px"
+        maxHeight="240px"
         relative="true"
         value={_calendarDate?.getFullYear()}
         on:_change={setYear}
@@ -413,7 +415,7 @@
   }
 
   h5 {
-    margin: 0;
+    margin: 8px 0;
     font: var(--goa-typography-heading-xs);
   }
 
