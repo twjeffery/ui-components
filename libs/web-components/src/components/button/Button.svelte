@@ -172,16 +172,6 @@
     /*  ------------------------------------------------------- */
 
   }
-  .icon {
-    /* Default icon size */
-    width: var(--goa-button-icon-size);
-    height: var(--goa-button-icon-size);
-  }
-  .icon.compact {
-    /* Compact icon size */
-    width: var(--goa-button-compact-icon-size);
-    height: var(--goa-button-compact-icon-size);
-  }
 
   button {
     display: inline-flex;
@@ -204,11 +194,6 @@
     width: var(--width, auto);
   }
 
-  button:disabled {
-    pointer-events: none;
-    opacity: 0.5;
-  }
-
   button:active {
     transform: translateY(2px);
   }
@@ -226,6 +211,17 @@
       display: flex;
     }
 
+  }
+
+  .icon {
+    /* Default icon size */
+    width: var(--goa-button-icon-size);
+    height: var(--goa-button-icon-size);
+  }
+  .icon.compact {
+    /* Compact icon size */
+    width: var(--goa-button-compact-icon-size);
+    height: var(--goa-button-compact-icon-size);
   }
 
   .text {
@@ -342,5 +338,11 @@
   .tertiary.destructive:focus,
   .tertiary.destructive:active {
     color: var(--goa-button-tertiary-destructive-focus-color-text);
+  }
+
+  /* Disabled */
+  button:disabled {
+    pointer-events: none;
+    opacity: 0.5;
   }
 </style>
