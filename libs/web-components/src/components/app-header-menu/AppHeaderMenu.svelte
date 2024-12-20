@@ -167,7 +167,7 @@
       position="below"
       open={_open}
     >
-      <button slot="target" class={type} class:current={_hasCurrentLink}>
+      <button slot="target" class={type} class:open={_open} class:current={_hasCurrentLink}>
         {#if leadingicon}
           <goa-icon type={leadingicon} mt="1" />
         {/if}
@@ -294,7 +294,9 @@
     /* Tokens specific to AppHeaderMenu */
 
     --goa-app-header-padding-nav-item-with-children: var(--goa-space-m) var(--goa-space-s) var(--goa-space-s);
+    --goa-app-header-padding-secondary-nav-item-in-menu-mobile: 9px var(--goa-space-m) 9px 80px;
     --goa-app-header-padding-secondary-nav-item-in-menu: 9px var(--goa-space-m) 9px var(--goa-space-xl);
+
 
     --goa-app-header-border-top-menu-item: inset 0 1px 0 0 var(--goa-color-greyscale-200);
     --goa-app-header-border-bottom-menu-item: inset 0 -1px 0 0 var(--goa-color-greyscale-200);
@@ -336,10 +338,10 @@
     border-top: var(--goa-app-header-border-nav-item-hidden);
     border-bottom: var(--goa-app-header-border-nav-item-focus);
   }
-  /* Adds missing border bottom to first item
   button.open {
-    border-bottom: 1px solid var(--goa-color-greyscale-200);
-  }*/
+    background-color: var(--goa-app-header-color-bg-menu-button-focus);
+    color: var(--goa-app-header-color-menu-button-focus);
+  }
 
   /* Menu item with children --Current */
   button.current {
@@ -398,7 +400,7 @@
     background-color: var(--goa-app-header-color-bg-nav-item-focus);
   }
 
-  /* Secondary Menu items (in popover on menu item) --Mobile */
+  /* Secondary Menu items (in popover on menu item) --Tablet */
   .not-desktop :global(::slotted(a)) {
     padding: var(--goa-app-header-padding-secondary-nav-item-in-menu) !important;
   }
@@ -407,7 +409,7 @@
     /* Menu item with children on mobile */
     button {
       box-shadow: var(--goa-app-header-border-top-menu-item);
-      padding: var(--goa-app-header-padding-nav-item-in-menu);
+      padding:  9px var(--goa-space-m);
       width: 100%;
       border-top: none;
       border-bottom: none;
@@ -431,8 +433,8 @@
     }
     button.open {
       box-shadow: var(--goa-app-header-border-top-menu-item), var(--goa-app-header-border-bottom-menu-item);
-      padding: var(--goa-app-header-padding-nav-item-in-menu);
-
+      background: var(--goa-app-header-color-bg-nav-item-child-hover);
+      color: var(--goa-app-header-color-text-nav-item-hover);
     }
     button.open:hover, button.open:focus-visible {
       box-shadow: var(--goa-app-header-border-top-menu-item), var(--goa-app-header-border-bottom-menu-item);
@@ -440,6 +442,18 @@
     .heading {
       /* prevent the menu text from line breaking too early */
       flex: 0 0 auto;
+    }
+
+  }
+
+   @media (--mobile) {
+    /* Secondary Menu items (in popover on menu item) --Mobile */
+    .not-desktop :global(::slotted(a)) {
+    padding: var(--goa-app-header-padding-secondary-nav-item-in-menu-mobile) !important;
+    }
+    /* Menu item with children (in popover on menu item) --Mobile */
+    button {
+      padding: 9px var(--goa-space-2xl);
     }
   }
 
@@ -451,6 +465,11 @@
     button.secondary {
       font-weight: var(--goa-font-weight-regular);
     }
+    button.open {
+    background-color: var(--goa-app-header-color-bg-menu-button-focus);
+    color: var(--goa-app-header-color-menu-button-focus);
+    border-bottom: var(--goa-app-header-border-nav-item-focus);
+  }
   }
 
 </style>
