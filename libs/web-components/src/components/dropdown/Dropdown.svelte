@@ -95,11 +95,6 @@
   $: _native = toBoolean(native);
   $: _filterable = toBoolean(filterable) && !_native;
 
-  $: {
-    if (_filterable) {
-      leadingicon = "search";
-    }
-  }
 
   // To keep track of active descendant for the accessibility
   $: _activeDescendantId = _filteredOptions[_highlightedIndex]

@@ -82,7 +82,7 @@
       size="1"
     />
   {:else}
-    <div style="height: 1.2rem; margin-left:-0.25rem;" />
+    <div style="margin-left:-0.25rem;" />
   {/if}
   {#if content}
     <div class="goa-badge-content">
@@ -103,6 +103,7 @@
     --goa-badge-border-radius: var(--goa-border-radius-m);
     --goa-badge-padding: 0px var(--goa-space-xs);
     --goa-badge-gap: var(--goa-space-2xs);
+    --goa-badge-height: 22px;
     --goa-badge-font-size: var(--goa-font-size-2);
     --goa-badge-line-height: var(--goa-line-height-1);
     --goa-badge-icon-size: var(--goa-icon-size-1);
@@ -132,24 +133,25 @@
   }
 
   .goa-badge {
-    display: inline-flex;
+    display: flex;
+    height: var(--goa-badge-height);
     align-items: center;
     border-radius: var(--goa-badge-border-radius);
-    padding: var(--goa-badge-padding);  /* is calc(3 / 16 * 1rem) better for scaling? */
+    padding: var(--goa-badge-padding);
     gap: var(--goa-badge-gap);
     font-weight: var(--goa-font-weight-regular);
     box-shadow: var(--goa-badge-border); /* inner shadow - new style */
   }
 
   .icon-only {
-    padding: 0.25rem;
+    padding: 0 3px;
   }
 
   .goa-badge-content {
     font-size: var(--goa-badge-font-size);
     line-height: var(--goa-badge-line-height);
     white-space: nowrap;
-    padding-bottom: 0.2rem; /* acumin font requires this to allow for vertical alignment  */
+    padding-bottom: 3px; /* acumin font requires this to allow for vertical alignment  */
   }
 
   .goa-badge.badge-information {

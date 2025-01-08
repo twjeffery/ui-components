@@ -140,7 +140,6 @@
 
   .meta-section.with-meta-links {
   /* gap between meta links and goa log when stacked vertically on small screen  */
-
     justify-content: space-between;
   }
 
@@ -182,18 +181,16 @@
       flex-direction: row-reverse;
       gap: var(--goa-space-m);
     }
+
+    .abgov.with-meta-links {
+      align-items: flex-end;
+    }
   }
 
   .abgov.with-meta-links {
     gap: var(--goa-space-m); /* gap between copyright and goa logo when stacked  */
     flex-direction: column;
     width: unset;
-  }
-
-  @container self (--not-mobile) {
-    .abgov.with-meta-links {
-      align-items: flex-end;
-    }
   }
 
   .goa-copyright {
@@ -203,6 +200,7 @@
   a {
     color: var(--goa-footer-color-links);
     cursor: pointer;
+    display: flex;
   }
 
   a:hover {

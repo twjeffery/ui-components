@@ -21,7 +21,7 @@
   );
   const [Variants, validateVariant] = typeValidator(
     "Button variant",
-    ["normal", "destructive", "inverse"],
+    ["normal", "destructive"],
     true,
   );
 
