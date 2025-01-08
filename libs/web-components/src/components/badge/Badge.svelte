@@ -82,7 +82,7 @@
       size="1"
     />
   {:else}
-    <div style="margin-left:-0.25rem;" />
+    <div style="height: 22px; margin-left:-0.25rem;" />
   {/if}
   {#if content}
     <div class="goa-badge-content">
@@ -96,6 +96,7 @@
   :host {
     box-sizing: border-box;
     font-family: var(--goa-font-family-sans);
+    height: 22px;
 
     /* TODO Badge Component Tokens to move to component tokens file */
 
@@ -133,8 +134,10 @@
   }
 
   .goa-badge {
-    display: flex;
+    display: inline-flex;
     height: var(--goa-badge-height);
+    width: auto;
+    vertical-align: top;
     align-items: center;
     border-radius: var(--goa-badge-border-radius);
     padding: var(--goa-badge-padding);
