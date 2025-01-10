@@ -468,7 +468,7 @@ describe("GoADropdown", () => {
 
       await waitFor(() => {
         const dropdown = result.container.querySelector(".dropdown");
-        expect(dropdown?.getAttribute("style")).toContain("--width: 9ch"); // 8 + 1 (letter count of longest item)
+        expect(dropdown?.getAttribute("style")).toContain("--width: 8ch"); // 7 + 1 (letter count of longest item)
       });
     });
 
@@ -480,7 +480,7 @@ describe("GoADropdown", () => {
 
       await waitFor(() => {
         const dropdown = result.container.querySelector(".dropdown");
-        expect(dropdown?.getAttribute("style")).toContain("--width: 28ch"); // 8 + 20
+        expect(dropdown?.getAttribute("style")).toContain("--width: 27ch"); // 7 + 20
       });
     });
 

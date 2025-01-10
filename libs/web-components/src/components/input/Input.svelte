@@ -87,6 +87,7 @@
   let _debounceId: any;
   let inputEl: HTMLElement;
   let _rootEl: HTMLElement;
+  let containerWidth = "";
   let _error: boolean;
   let _prevError = _error;
 
