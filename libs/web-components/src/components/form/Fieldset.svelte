@@ -1,16 +1,27 @@
 <svelte:options
   customElement={{
-    tag: "goa-fieldset",
+    tag: "goa-public-form-page",
     props: {
+      buttonText: { type: "String", attribute: "button-text" },
+      secondaryButtonText: {
+        type: "String",
+        attribute: "secondary-button-text",
+      },
+      skipSummary: { type: "Boolean", attribute: "skip-summary" },
+      preserveState: { type: "String", attribute: "preserve-state" },
       sectionTitle: { type: "String", attribute: "section-title" },
       dispatchOn: { attribute: "dispatch-on" },
+      first: { attribute: "first", type: "Boolean" },
+      last: { attribute: "last", type: "Boolean" },
+      active: { attribute: "active", type: "Boolean" },
     },
   }}
 />
 
 <script lang="ts">
   import { onMount } from "svelte";
-  import { receive, relay } from "../../common/utils";
+  import { calculateMargin, Spacing } from "../../common/styling";
+  import { dispatch, receive, relay, styles } from "../../common/utils";
   import {
     ExternalErrorRelayDetail,
     ExternalSetErrorMsg,
@@ -20,12 +31,19 @@
     FieldsetChangeRelayDetail,
     FieldsetErrorRelayDetail,
     FieldsetItemState,
+    FieldsetMountFormItemMsg,
+    FieldsetMountFormRelayDetail,
     FieldsetResetErrorsMsg,
     FieldsetResetFieldsMsg,
     FieldsetSetErrorMsg,
     FieldsetSetValueMsg,
     FieldsetSetValueRelayDetail,
+    FieldsetCompleteMsg,
     FieldsetValidationRelayDetail,
+    FormBackUrlDetail,
+    FormBackUrlMsg,
+    FormDispatchEditMsg,
+    FormDispatchEditRelayDetail,
     FormFieldMountMsg,
     FormFieldMountRelayDetail,
     FormItemMountMsg,
@@ -35,7 +53,7 @@
     FormSetFieldsetMsg,
     FormSetFieldsetRelayDetail,
     FormToggleActiveMsg,
-    FormToggleActiveRelayDetail, FormPageContinueMsg, FormPageContinueRelayDetail,
+    FormToggleActiveRelayDetail,
   } from "../../types/relay-types";
 
   // ======
@@ -43,15 +61,31 @@
   // ======
 
   export let id: string = "";
+  export let skipSummary: boolean = false;
+  export let heading: string = "";
+  export let buttonText: string = "";
+  export let secondaryButtonText: string = "";
+  export let sectionTitle: string = "";
+
   // when the changes will be dispatched to the form; `change` ~ immediately
   export let dispatchOn: "change" | "continue" = "continue";
+  export let mt: Spacing = null;
+  export let mr: Spacing = null;
+  export let mb: Spacing = null;
+  export let ml: Spacing = null;
+  export let first: boolean = false;
+  export let last: boolean = false;
+  export let active: boolean = false;
 
   // =======
   // Private
   // =======
 
   let _rootEl: HTMLElement;
+  let _active: boolean = false;
+  let _editting: boolean = false;
   let _errors: Record<string, string> = {};
+  let _backUrl: string;
 
   // allows for the state to be sent to _continue event allowing for custom validation
   let _state: Record<string, FieldsetItemState> = {};
@@ -64,6 +98,16 @@
 
   // reference to child form input, dropdown, etc components to allow for relaying of error state
   let _formFields: Record<string, { order: number; el: HTMLElement }> = {};
+
+  // ========
+  // Reactive
+  // ========
+
+  $: if (_active) {
+    const url = new URL(location.href);
+    url.searchParams.set("page", id);
+    history.pushState({ page: id }, "", url);
+  }
 
   // =====
   // Hooks
@@ -88,6 +132,9 @@
         case FormResetErrorsMsg:
           onErrorReset();
           break;
+        case FormDispatchEditMsg:
+          onFormDispatch(data as FormDispatchEditRelayDetail);
+          break;
         case FormItemMountMsg:
           onFormItemMount(data as FormItemMountRelayDetail);
           break;
@@ -100,8 +147,8 @@
         case ExternalSetErrorMsg:
           onError(data as ExternalErrorRelayDetail);
           break;
-        case FormPageContinueMsg:
-          onFormPageContinue(data as FormPageContinueRelayDetail);
+        case FormBackUrlMsg:
+          setBackUrl(data as FormBackUrlDetail);
           break;
         case FormResetFormMsg:
           resetFields(event);
@@ -114,13 +161,6 @@
   // Dispatch handlers
   // *****************
 
-  function onToggleActiveState(detail: FormToggleActiveRelayDetail) {
-    // obtain an initial snapshot of the data when fieldset shown
-    if (detail.active) {
-      _stateSnapshot = { ..._state };
-    }
-  }
-
   function resetFields(event: Event) {
     // prevent subform resets from resetting the parent
     event.stopPropagation();
@@ -128,6 +168,10 @@
     for (const { el } of Object.values(_formFields)) {
       relay(el, FieldsetResetFieldsMsg);
     }
+  }
+
+  function setBackUrl(detail: FormBackUrlDetail) {
+    _backUrl = detail.url;
   }
 
   function onSetFieldset(detail: FormSetFieldsetRelayDetail) {
@@ -153,6 +197,11 @@
     }
   }
 
+  // allow customization of form if user has jumped back to a question (editting mode)
+  function onFormDispatch(detail: FormDispatchEditRelayDetail) {
+    _editting = detail.id === id;
+  }
+
   function onErrorReset() {
     _errors = {};
 
@@ -163,6 +212,12 @@
     for (const [_, { el }] of Object.entries(_formItems)) {
       relay(el, FieldsetResetErrorsMsg, null);
     }
+  }
+
+  function onToggleActiveState(detail: FormToggleActiveRelayDetail) {
+    _active = detail.active;
+
+    _stateSnapshot = { ..._state };
   }
 
   function onFormItemMount(detail: FormItemMountRelayDetail) {
@@ -177,6 +232,14 @@
 
     const itemCount = Object.keys(_formFields).length;
     _formFields[name] = { order: itemCount + 1, el };
+
+    // dispatch to the Form along with the fieldset id
+    relay<FieldsetMountFormRelayDetail>(
+      _rootEl,
+      FieldsetMountFormItemMsg,
+      { id, name, el },
+      { bubbles: true },
+    );
   }
 
   function onError(detail: ExternalErrorRelayDetail) {
@@ -201,9 +264,52 @@
     );
   }
 
+  // **************
+  // Event handlers
+  // **************
+
+  // FIXME: refactor this
+  // Dispatch _continue event to app's level allowing custom validation to be performed
+  function saveAndContinue() {
+    // Prevents looping form sections from sending no data to the form, thereby overwritting data
+    // already collected and saved at the form level
+    // const isDirty = Object.keys(_state).length > 0;
+    // if (isDirty) {
+    //   relayFieldsetChange();
+    // }
+
+    // dispatch to on:_continue method allowing users to validate the data
+    sendContinueMsg(false);
+  }
+
+  function sendContinueMsg(cancelled: boolean) {
+    console.log("sendContinueMsg", cancelled, _state);
+
+    const isDirty = Object.keys(_state).length > 0;
+    if (isDirty) {
+      relayFieldsetChange();
+    }
+
+    dispatch<FieldsetValidationRelayDetail>(
+      _rootEl,
+      "_continue",
+      { el: _rootEl, state: cancelled ? _stateSnapshot : _state, last, first },
+      { bubbles: true },
+    );
+
+    if (cancelled) {
+      revertFormFieldValues();
+      _state = _stateSnapshot;
+    }
+  }
+
   // *********
   // Functions
   // *********
+
+  function onCancel() {
+    sendContinueMsg(true);
+  }
 
   function revertFormFieldValues() {
     for (const [name, val] of Object.entries(_formFields)) {
@@ -217,16 +323,30 @@
     }
   }
 
-  // Bind with the parent FormPage
+  function onComplete() {
+    // FIXME: this functions assumes that the submit button is being displayed within a summary page
+    // and that the all the form data has already been relayed up to the form. But if the last page
+    // is *not* a summary page this breaks.
+    sendContinueMsg(false); // This was added to ensure that above issue is "fixed"
+    relay(_rootEl, FieldsetCompleteMsg, null, { bubbles: true });
+  }
+
+  function onSecondaryClick() {
+    dispatch(_rootEl, "_secondaryClick", {}, { bubbles: true });
+  }
+
+  function handleBack(e: Event) {
+    history.back();
+    e.stopPropagation();
+  }
+
   function dispatchBindMsg() {
-    setTimeout(() => {
-      relay<FieldsetBindRelayDetail>(
-        _rootEl,
-        FieldsetBindMsg,
-        { id, el: _rootEl, cb: (_id) => (id = _id) },
-        { bubbles: true, timeout: 10 },
-      );
-    }, 10);
+    relay<FieldsetBindRelayDetail>(
+      _rootEl,
+      FieldsetBindMsg,
+      { id, heading, skipSummary, el: _rootEl },
+      { bubbles: true, timeout: 10 },
+    );
   }
 
   function addChildChangeListener() {
@@ -258,14 +378,13 @@
     });
   }
 
-  // TODO: this needs to relay a message up to the parent public-form-page element, which will add the `heading` in it
   function relayFieldsetChange() {
     relay<FieldsetChangeRelayDetail>(
       _rootEl,
       FieldsetChangeMsg,
       {
         id,
-        state: { data: _state },
+        state: { heading, data: _state },
         dispatchOn,
       },
       { bubbles: true },
@@ -276,60 +395,97 @@
     _formFields[id].el.focus();
     e.preventDefault();
   }
-
-  function onFormPageContinue(detail: FormPageContinueRelayDetail) {
-    const isDirty = Object.keys(_state).length > 0;
-    if (isDirty) {
-      relayFieldsetChange();
-    }
-
-    relayContinue(detail);
-
-    if (detail.cancelled) {
-      revertFormFieldValues();
-      _state = _stateSnapshot;
-    }
-  }
-
-  function relayContinue(detail: FormPageContinueRelayDetail) {
-    relay<FieldsetValidationRelayDetail>(
-      _rootEl,
-      "_continue",
-      { el: _rootEl, state: detail.cancelled ? _stateSnapshot : _state },
-      { bubbles: true },
-    );
-  }
 </script>
 
-<fieldset bind:this={_rootEl}>
-  {#if Object.values(_errors).filter((err) => !!err).length}
-    <goa-callout type="emergency" heading={`There is a problem`}>
-      <ul class="errors">
-        {#each Object.keys(_errors) as key}
-          <li>
-            <a
-              class="error"
-              href={`#${key}`}
-              on:click={(e) => jumpToError(e, key)}
-            >
-              {_errors[key]}
-            </a>
-          </li>
-        {/each}
-      </ul>
-    </goa-callout>
-  {/if}
+<section bind:this={_rootEl}>
+  <fieldset
+    style={styles(
+      calculateMargin(mt, mr, mb, ml),
+      `display: ${_active || active ? "block" : "none"}`,
+    )}
+  >
+    {#if first && _backUrl && !_editting }
+      <goa-link leadingicon="chevron-back" mb="2xl">
+        <a href={_backUrl}>Back</a>
+      </goa-link>
+    {/if}
+    {#if (!first && !_editting && !last)}
+      <goa-link-button
+        leadingicon="chevron-back"
+        mb="2xl"
+        on:_click={handleBack}
+      >
+        Back
+      </goa-link-button>
+    {/if}
 
-  <goa-block gap="m" direction="column">
-    <slot />
-  </goa-block>
+    {#if Object.values(_errors).filter((err) => !!err).length}
+      <goa-callout type="emergency" heading={`There is a problem`}>
+        <ul class="errors">
+          {#each Object.keys(_errors) as key}
+            <li>
+              <a
+                class="error"
+                href={`#${key}`}
+                on:click={(e) => jumpToError(e, key)}
+              >
+                {_errors[key]}
+              </a>
+            </li>
+          {/each}
+        </ul>
+      </goa-callout>
+    {/if}
 
-</fieldset>
+    {#if sectionTitle}
+      <goa-text class="section-title" size="body-l" mb="s">
+        {sectionTitle}
+      </goa-text>
+    {/if}
+
+    {#if heading}
+      <goa-text as="h2" size="heading-l">{heading}</goa-text>
+    {:else}
+      <br />
+    {/if}
+
+    <goa-block gap="m" direction="column">
+      <slot />
+    </goa-block>
+
+    <goa-block mt="xl">
+      {#if _editting && !secondaryButtonText}
+        <goa-button on:_click={onCancel} type="secondary">
+          Cancel
+        </goa-button>
+      {/if}
+      {#if secondaryButtonText}
+        <goa-button on:_click={onSecondaryClick} type="secondary">
+          {secondaryButtonText}
+        </goa-button>
+      {/if}
+
+      {#if last}
+        <goa-button on:_click={onComplete} type="primary">
+          {buttonText || "Confirm"}
+        </goa-button>
+      {:else}
+        <goa-button on:_click={saveAndContinue} type="primary">
+          {buttonText || "Continue"}
+        </goa-button>
+      {/if}
+    </goa-block>
+  </fieldset>
+</section>
 
 <style>
   fieldset {
     border: none;
     padding: 0;
+  }
+
+  .section-title {
+    color: var(--goa-color-greyscale-700);
   }
 
   ul {

@@ -1,10 +1,11 @@
-export type FieldValidator = (value: unknown) => string;
-export type FieldsetState = Record<string, FieldsetItemState>;
 export type FieldsetItemState = {
   name: string;
   label: string;
   value: string;
 };
+
+export type FieldValidator = (value: unknown) => string;
+export type FieldsetState = Record<string, FieldsetItemState>;
 
 export class FormValidator {
   private readonly validators: Record<string, FieldValidator[]>;
@@ -23,7 +24,8 @@ export class FormValidator {
     Object.entries(this.validators).forEach(([name, validators]) => {
       const err = validators
         .map((validatorFn) => {
-          return validatorFn(data[name]);
+          const errMsg = validatorFn(data[name]);
+          return errMsg;
         })
         .find((msg) => !!msg);
       if (err) {
@@ -166,32 +168,25 @@ export function dateValidator({
   maxMsg,
   min,
   max,
-}: DateValidatorOptions = {}): FieldValidator {
+}: DateValidatorOptions): FieldValidator {
   return (date: unknown) => {
-    let _date: Date = new Date(-1);
-
-    // allow empty value
-    if (`${date || ""}`.length === 0) {
-      return "";
-    }
+    let _date: Date = new Date(0);
 
     if (typeof date === "string") {
-      _date = new Date(date);
-    }
-    if (typeof date === "number") {
       _date = new Date(date);
     }
     if ((date as Date).toDateString) {
       _date = date as Date;
     }
 
-    if (_date.getDate() === -1) {
+    if (_date.toString() === "Invalid Date" || _date.getTime() === 0) {
       return invalidMsg || "Invalid date";
     }
-    if (min && _date < min) {
+
+    if (_date && min && _date < min) {
       return minMsg || `Must be after ${min}`;
     }
-    if (max && _date > max) {
+    if (_date && max && _date > max) {
       return maxMsg || `Must be before ${max}`;
     }
 
@@ -213,14 +208,10 @@ export function numericValidator({
   maxMsg,
   min = -Number.MAX_VALUE,
   max = Number.MAX_VALUE,
-}: NumericValidatorOptions = {}): FieldValidator {
+}: NumericValidatorOptions): FieldValidator {
   return (value: unknown) => {
     let _value: number = Number.MAX_VALUE;
 
-    // empty value
-    if (`${value ?? ""}`.length === 0) {
-      return "";
-    }
     if (typeof value === "string") {
       _value = parseFloat(value);
     }
@@ -249,6 +240,7 @@ interface LengthValidatorOptions {
   maxMsg?: string;
   max?: number;
   min?: number;
+  optional?: boolean;
 }
 
 export function lengthValidator({
@@ -257,10 +249,11 @@ export function lengthValidator({
   maxMsg,
   min = -Number.MAX_VALUE,
   max = Number.MAX_VALUE,
+  optional,
 }: LengthValidatorOptions): FieldValidator {
   return (value: unknown) => {
-    // valid if blank
-    if (`${value || ""}`.length === 0) {
+    // valid if optional and blank
+    if (optional && `${value}`.length === 0) {
       return "";
     }
 

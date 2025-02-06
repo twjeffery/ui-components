@@ -19,14 +19,16 @@
     FormBindMsg,
     FormBindRelayDetail,
     FormDispatchStateMsg, FormDispatchStateRelayDetail,
-    FormDispatchStateRelayDetailList, FormPageBackMsg,
+    FormDispatchStateRelayDetailList,
     FormResetFormMsg,
     FormSetFieldsetMsg,
     FormState,
-    StateChangeEvent, StateChangeRelayDetail, SubFormBindMsg, SubFormBindRelayDetail,
+    FormToggleActiveMsg,
+    FormToggleActiveRelayDetail, StateChangeEvent, StateChangeRelayDetail, SubFormBindMsg, SubFormBindRelayDetail,
     SubFormIndexContinueToParentMsg,
     SubFormIndexContinueToSubFormMsg,
   } from "../../types/relay-types";
+  import { calculateMargin, Spacing } from "../../common/styling";
 
   // Subform props
   export let id: string = "";
@@ -36,6 +38,10 @@
   export let name: string;
   export let backUrl: string = "";
   export let dispatchOn: "continue" | "complete" = "continue";
+  export let mt: Spacing = null;
+  export let mr: Spacing = null;
+  export let mb: Spacing = null;
+  export let ml: Spacing = null;
 
   let _formEl: HTMLElement;
 
@@ -45,6 +51,9 @@
   // Allows the subform to dispatch off messages to parent form without intercepting it's own messages
   let _relayEl: HTMLElement;
 
+  // Allows the subform to be hidden/shown, much like a fieldset
+  let _active: boolean = false;
+
   // List of all the looped items
   let _state: FormState[] = [];
 
@@ -53,10 +62,6 @@
 
   // Whether the SubForm is showing the index list or the child form component
   let _mode: "form" | "index" = "index";
-
-  // Index to the current item being created or editted. This allows access to the current
-  // item's history to allow handling of "Back" clicks.
-  let _itemIndex: number = 0;
 
   onMount(() => {
     addRelayListener();
@@ -104,11 +109,9 @@
         case FormSetFieldsetMsg:
           onSetFieldset(data as FormState[]);
           break;
-
-        case FormPageBackMsg:
-          onFormPageBack();
+        case FormToggleActiveMsg:
+          onToggleActiveState(data as FormToggleActiveRelayDetail);
           break;
-
         case FieldsetBindMsg:
           onFieldsetMount(data as FieldsetBindRelayDetail);
           break;
@@ -132,6 +135,7 @@
 
         // pass directly down to the form
         case ExternalContinueMsg:
+          console.log("1. subform passing continue down to form", _formEl);
           relay(_formEl, ExternalContinueMsg, data);
           break;
 
@@ -141,15 +145,6 @@
           break;
       }
     });
-  }
-
-  // Handles the Back event when it's sent from the first page within the subform.
-  function onFormPageBack() {
-    // the index page is what was seen before the first page of the subform
-    _mode = "index";
-
-    // clear out any partially completed form from the top of the _state stack
-    _state.pop();
   }
 
   function alterItem(detail: ExternalAlterDataRelayDetail) {
@@ -165,7 +160,6 @@
 
   function editItem(index: number) {
     _mode = "form";
-    setItemIndex(index);
 
     // send selected item to child form
     relay<FormDispatchStateRelayDetail>(_formEl, FormDispatchStateMsg, _state[index]);
@@ -182,7 +176,6 @@
 
   function initState(data: FormState[]) {
     _state = data;
-    resetItemIndex();
   }
 
   //
@@ -201,16 +194,7 @@
 
   function onSubFormIndexContinueToParent() {
     _mode = "index";
-    resetItemIndex();
     dispatch(_relayEl, "_continue", { el: _receiverEl }, { bubbles: true });
-  }
-
-  function resetItemIndex() {
-    _itemIndex = _state.length;
-  }
-
-  function setItemIndex(index: number) {
-    _itemIndex = index;
   }
 
   // Handled event when data is dispatched down from the parent
@@ -271,10 +255,19 @@
     relay<FieldsetBindRelayDetail>(
       _relayEl,
       FieldsetBindMsg,
-      { id, el: _receiverEl },
+      { id, heading, el: _receiverEl },
       { bubbles: true, timeout: 10 },
     );
   }
+
+  /**
+   * Toggles the subform's active state
+   * @param detail
+   */
+  function onToggleActiveState(detail: FormToggleActiveRelayDetail) {
+    _active = detail.active;
+  }
+
 
   /**
    * Handles the state change event triggered by a child form and updates the internal state accordingly.
@@ -291,7 +284,7 @@
       return;
     }
 
-    // subform item being edited
+    // FIXME: these ids don't align...
     const editStateIndex = _state.findIndex((s) => s.uuid === detail.data.uuid);
 
     // Required to prevent the detail from being changed after being added to the array
@@ -325,9 +318,19 @@
    * @return {void} - This method does not return a value.
    */
   function onChildFormComplete(e: Event) {
+    // const childFormState = (e as CustomEvent).detail as FormState;
+
+    // determine if the child state is being added or replacing existing data
+    // const index = _state.findIndex(s => s.uuid === childFormState.uuid);
+    // const deepCopiedData = JSON.parse(JSON.stringify(childFormState));
+    // if (index >= 0) {
+    //   _state[index] = deepCopiedData;
+    // } else {
+    //   _state.push(deepCopiedData);
+    // }
+
     // change back to list mode
     _mode = "index";
-    resetItemIndex();
 
     // send message to form to reset it's state
     relay(_formEl, FormResetFormMsg);
@@ -340,24 +343,36 @@
   }
 </script>
 
-<div bind:this={_relayEl} data-id="subform">
-  <section style={style("display", `${_mode === "index" ? "block" : "none"}`)}>
+<div
+  bind:this={_relayEl}
+  data-id="subform"
+>
+  <section
+    style={
+      style("display", `${_active && _mode === "index" ? "block" : "none"}`)
+    }
+  >
     <slot name="subform-index" />
   </section>
-
   <goa-public-form
-    {name}
-    {dispatchOn}
-    {backUrl}
     data-id="subform-form"
+    sub-form
     bind:this={_receiverEl}
     on:_stateChange={onChildFormStateChange}
     on:_continue={onFormContinue}
     on:_complete={onChildFormComplete}
     on:_init={onInit}
     style={styles(
-      `display: ${_mode === "form" ? "block" : "none"}`,
+      calculateMargin(mt, mr, mb, ml),
+      `display: ${_active && _mode === "form" ? "block" : "none"}`,
     )}
+    {name}
+    {dispatchOn}
+    {backUrl}
+    {mt}
+    {mr}
+    {mb}
+    {ml}
   >
     <slot />
   </goa-public-form>
